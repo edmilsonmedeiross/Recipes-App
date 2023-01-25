@@ -1,25 +1,71 @@
 import React from 'react';
+import './App.css';
 import { Route, Switch } from 'react-router-dom';
-import Login from './pages/Login';
-// import './App.css';
-// import rockGlass from './images/rockGlass.svg';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Recipes from './pages/Recipes';
+import RecipeDetails from './pages/RecipeDetails';
+import RecipeInProgress from './pages/RecipeInProgress';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import Profile from './pages/Profile';
+import Login from './components/Login';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/" component={ Login } />
-    </Switch>
-    // <div className="meals">
-    //   <span className="logo">TRYBE</span>
-    //   <object
-    //     className="rocksGlass"
-    //     type="image/svg+xml"
-    //     data={ rockGlass }
-    //   >
-    //     Glass
-    //   </object>
-    // </div>
+    <div className="meals">
+      <Switch>
+        <Route
+          exact
+          path="/"
+          component={ Login }
+        />
+        <Route
+          exact
+          path="/meals"
+          component={ Recipes }
+        />
+        <Route
+          exact
+          path="/drinks"
+          component={ Recipes }
+        />
+        <Route
+          exact
+          path="/meals/:id-da-receita"
+          component={ RecipeDetails }
+        />
+        <Route
+          exact
+          path="/drinks/:id-da-receita"
+          component={ RecipeDetails }
+        />
+        <Route
+          exact
+          path="/meals/:id-da-receita/in-progress"
+          component={ RecipeInProgress }
+        />
+        <Route
+          exact
+          path="/drinks/:id-da-receita/in-progress"
+          component={ RecipeInProgress }
+        />
+        <Route
+          exact
+          path="/profile"
+          component={ Profile }
+        />
+        <Route
+          exact
+          path="/done-recipes"
+          component={ DoneRecipes }
+        />
+        <Route
+          exact
+          path="/favorite-recipes"
+          component={ FavoriteRecipes }
+        />
+      </Switch>
+    </div>
   );
 }
 
