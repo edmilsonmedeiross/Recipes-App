@@ -1,9 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import useFormInput from '../hooks/useFormInput';
 
-export default function Login() {
+export default function Login({ history }) {
   const userEmail = useFormInput('');
   const userPassword = useFormInput('');
+
+  const handleSubmit = () => {
+    localStorage.setItem('user', JSON.stringify({ email: userEmail.value }));
+    history.push('/meals');
+  };
 
   return (
     <div>
@@ -26,7 +32,7 @@ export default function Login() {
         />
         <button
           type="button"
-          // onClick={ handleLogin }
+          onClick={ handleSubmit }
           disabled={ userPassword.value.length <= Number('6') || !userEmail.value.match(
             /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
           ) }
@@ -38,3 +44,7 @@ export default function Login() {
     </div>
   );
 }
+
+Login.propTypes = {
+  history: PropTypes.func.isRequired,
+};
