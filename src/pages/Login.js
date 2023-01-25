@@ -4,11 +4,6 @@ import useFormInput from '../hooks/useFormInput';
 export default function Login() {
   const userEmail = useFormInput('');
   const userPassword = useFormInput('');
-  // const das = useFormInput('');
-
-  const handleLogin = () => {
-
-  };
 
   return (
     <div>
@@ -31,7 +26,10 @@ export default function Login() {
         />
         <button
           type="button"
-          onClick={ handleLogin }
+          // onClick={ handleLogin }
+          disabled={ userPassword.value.length <= Number('6') || !userEmail.value.match(
+            /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
+          ) }
           data-testid="login-submit-btn"
         >
           Login
