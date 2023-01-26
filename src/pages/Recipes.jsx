@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import useFetch from '../hooks/useFetch';
+import useFetchRecipes from '../hooks/useFetchRecipes';
 import RecipeCard from '../components/RecipeCard';
 
 function Recipes(props) {
@@ -12,7 +12,7 @@ function Recipes(props) {
   const MAX_RECIPES = 12;
   const MAX_CATEGORIES = 5;
 
-  const { makeFetch } = useFetch();
+  const { makeFetch } = useFetchRecipes();
   const [displayRecipes, setDisplayRecipes] = useState([]);
   const [displayCategories, setDisplayCategories] = useState([]);
 
