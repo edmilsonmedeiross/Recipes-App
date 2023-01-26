@@ -2,7 +2,7 @@ import React from 'react';
 import { act, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
-import { renderWithRouter } from './helpers/renderWith';
+import { renderWithRouter } from './helpers/renderHelper';
 
 test('se ao acessar a home page o componente não é renderizado', () => {
   renderWithRouter(<App />);

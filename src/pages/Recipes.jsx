@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Recipes(props) {
   const { location: { pathname } } = props;
@@ -11,6 +12,7 @@ function Recipes(props) {
         isSearchIcon
         title={ isDrink ? 'Drinks' : 'Meals' }
       />
+      <Footer />
     </div>
   );
 }

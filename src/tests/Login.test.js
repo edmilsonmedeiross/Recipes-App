@@ -2,8 +2,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouter } from './helpers/renderHelper';
-
-import Login from '../pages/Login';
 import App from '../App';
 
 describe('Teste da pagina de login', () => {
@@ -12,37 +10,37 @@ describe('Teste da pagina de login', () => {
   const loginButtonTestId = 'login-submit-btn';
 
   test('Verificar email placeholder', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(<App />);
     const placeholderEmail = screen.getByTestId(emailTestId);
     expect(placeholderEmail).toBeInTheDocument();
   });
 
   test('Verificar password placeholder', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(<App />);
     const placeholderPass = screen.getByTestId(passwordTestId);
     expect(placeholderPass).toBeInTheDocument();
   });
 
   test('Verificar password input', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(<App />);
     const testInputPassword = screen.getByTestId(passwordTestId);
     expect(testInputPassword).toBeInTheDocument();
   });
 
   test('Verificar login Button', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(<App />);
     const testEmailInput = screen.getByTestId(loginButtonTestId);
     expect(testEmailInput).toBeInTheDocument();
   });
 
   test('Verificar botão "Entrar" no Login', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(<App />);
     const buttonEnter = screen.getByTestId(loginButtonTestId);
     expect(buttonEnter).toBeInTheDocument();
   });
 
   test('Verificar se botão "Entrar" inicia disabled', () => {
-    renderWithRouter(<Login />);
+    renderWithRouter(<App />);
     const buttonEnter = screen.getByTestId(loginButtonTestId);
     expect(buttonEnter).toHaveAttribute('disabled');
   });
