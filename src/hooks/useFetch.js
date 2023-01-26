@@ -6,14 +6,13 @@ function useFetch() {
 
   const makeFetch = async (value, type) => {
     if (type === 'f' && value.length >= 2) {
-      global.alert(
-        'Your search must have only 1 (one) character',
-      );
+      return global.alert('Your search must have only 1 (one) character');
     }
 
     setIsLoading(true);
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?';
-    fetch(`${url}${type}=${value}`)
+    const customUrl = `${url}${type}=${value}`;
+    fetch(customUrl)
       .then((response) => response.json())
       .then((result) => setData(result));
     setIsLoading(false);

@@ -9,10 +9,11 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
+import SearchBarProvider from './context/SearchBarProvider';
 
 function App() {
   return (
-    <div className="meals">
+    <SearchBarProvider>
       <Switch>
         <Route
           exact
@@ -65,7 +66,7 @@ function App() {
           component={ FavoriteRecipes }
         />
       </Switch>
-    </div>
+    </SearchBarProvider>
   );
 }
 
