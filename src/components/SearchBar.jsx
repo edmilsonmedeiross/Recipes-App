@@ -1,9 +1,91 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import useFetch from '../hooks/useFetch';
+import { SearchBarContext } from '../context/SearchBarProvider';
 
 function SearchBar() {
+  const [data,, makeFetch] = useFetch();
+
+  const { optionSearch, setOptionSearch, nameSearch, setNameSearch,
+    setDataApi, startFetch, setStartFetch } = useContext(SearchBarContext);
+
+  useEffect(() => {
+    const fetchMeals = async () => {
+      await setDataApi(data.meals);
+    };
+    fetchMeals();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startFetch]);
+
+  const goFetch = async () => {
+    await makeFetch(nameSearch, optionSearch.id);
+    setDataApi(data.meals);
+  };
+
+  const handleChange = ({ target: { value, id, type } }) => {
+    if (type === 'text') {
+      return setNameSearch(value);
+    }
+    return setOptionSearch(
+      { ...optionSearch,
+        option: value,
+        id },
+    );
+  };
+
+  const handleClick = () => {
+    setStartFetch(!startFetch);
+    goFetch();
+  };
+
   return (
     <div>
-      <input type="text" data-testid="search-input" name="searchText" />
+      <input
+        type="text"
+        data-testid="search-input"
+        name="searchText"
+        value={ nameSearch }
+        onChange={ handleChange }
+      />
+      <label htmlFor="ingredient">
+        ingredient
+        <input
+          type="radio"
+          name="searchType"
+          id="i"
+          data-testid="ingredient-search-radio"
+          value="ingrediente"
+          onChange={ handleChange }
+        />
+      </label>
+      <label htmlFor="name">
+        name
+        <input
+          type="radio"
+          name="searchType"
+          id="s"
+          data-testid="name-search-radio"
+          value="nome"
+          onChange={ handleChange }
+        />
+      </label>
+      <label htmlFor="first-letter">
+        first letter
+        <input
+          type="radio"
+          name="searchType"
+          id="f"
+          data-testid="first-letter-search-radio"
+          value="primeira-letra"
+          onChange={ handleChange }
+        />
+      </label>
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ handleClick }
+      >
+        Search
+      </button>
     </div>
   );
 }
