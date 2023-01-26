@@ -3,19 +3,23 @@ import useFetch from '../hooks/useFetch';
 import { SearchBarContext } from '../context/SearchBarProvider';
 
 function SearchBar() {
-  const [data, makeFetch] = useFetch();
+  const [data,, makeFetch] = useFetch();
 
   const { optionSearch, setOptionSearch, nameSearch, setNameSearch,
     setDataApi, startFetch, setStartFetch } = useContext(SearchBarContext);
 
   useEffect(() => {
-    const goFetch = async () => {
-      await makeFetch(nameSearch, optionSearch.id);
+    const fetchMeals = async () => {
+      await setDataApi(data.meals);
     };
-    goFetch();
-    setDataApi(data.meals);
+    fetchMeals();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startFetch]);
+
+  const goFetch = async () => {
+    await makeFetch(nameSearch, optionSearch.id);
+    setDataApi(data.meals);
+  };
 
   const handleChange = ({ target: { value, id, type } }) => {
     if (type === 'text') {
@@ -30,6 +34,7 @@ function SearchBar() {
 
   const handleClick = () => {
     setStartFetch(!startFetch);
+    goFetch();
   };
 
   return (
