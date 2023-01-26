@@ -13,7 +13,7 @@ function Header(props) {
   };
 
   return (
-    <div>
+    <header>
       <h3
         data-testid="page-title"
       >
@@ -37,7 +37,7 @@ function Header(props) {
           />
         </button>)}
       { isSearchBar && (<SearchBar />) }
-    </div>
+    </header>
   );
 }
 
