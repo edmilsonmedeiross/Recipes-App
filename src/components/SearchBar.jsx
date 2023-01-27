@@ -1,24 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import useFetch from '../hooks/useFetch';
 import { SearchBarContext } from '../context/SearchBarProvider';
 
 function SearchBar() {
-  const [data,, makeFetch] = useFetch();
+  const [, makeFetch] = useFetch();
 
   const { optionSearch, setOptionSearch, nameSearch, setNameSearch,
-    setDataApi, startFetch, setStartFetch } = useContext(SearchBarContext);
-
-  useEffect(() => {
-    const fetchMeals = async () => {
-      await setDataApi(data.meals);
-    };
-    fetchMeals();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startFetch]);
+    startFetch, setStartFetch } = useContext(SearchBarContext);
 
   const goFetch = async () => {
     await makeFetch(nameSearch, optionSearch.id);
-    setDataApi(data.meals);
   };
 
   const handleChange = ({ target: { value, id, type } }) => {

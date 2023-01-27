@@ -2,16 +2,13 @@ import React from 'react';
 import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
+import SearchBarProvider from '../../context/SearchBarProvider';
 
 function withRouter(component, history) {
-  return (
-    <Router history={ history }>
-      { component }
-    </Router>
-  );
+  return <Router history={ history }>{component}</Router>;
 }
 
-export function renderWithRouter(
+export function renderWithRouterAndProvider(
   component,
   {
     initialEntries = ['/'],
@@ -19,7 +16,9 @@ export function renderWithRouter(
   } = {},
 ) {
   return {
-    ...render(withRouter(component, history)),
+    ...render(
+      <SearchBarProvider>{withRouter(component, history)}</SearchBarProvider>,
+    ),
     history,
   };
 }
