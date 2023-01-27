@@ -14,6 +14,8 @@ export default function Login({ history }) {
   return (
     <div>
       <form>
+        <h1>Recipes App</h1>
+        <br />
         <input
           type="email"
           name="userEmail"
@@ -22,6 +24,7 @@ export default function Login({ history }) {
           onChange={ userEmail.onChange }
           data-testid="email-input"
         />
+        <br />
         <input
           type="password"
           name="userPassword"
@@ -30,6 +33,7 @@ export default function Login({ history }) {
           onChange={ userPassword.onChange }
           data-testid="password-input"
         />
+        <br />
         <button
           type="button"
           onClick={ handleSubmit }
