@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { SearchBarContext } from '../context/SearchBarProvider';
 
 function useFetch() {
-  const [data, setData] = useState([]);
+  const { setDataApi } = useContext(SearchBarContext);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
+  console.log(history.location.pathname);
 
   const makeFetch = (value, type) => {
     if (type === 'f' && value.length >= 2) {
@@ -10,18 +14,18 @@ function useFetch() {
     }
 
     setIsLoading(true);
-    const url = 'https://www.themealdb.com/api/json/v1/1/';
+    const url = history.location.pathname.includes('meals') ? 'https://www.themealdb.com/api/json/v1/1/' : 'https://www.thecocktaildb.com/api/json/v1/1/';
     const customUrl = type === 'i'
       ? `${url}filter.php?${type}=${value}`
       : `${url}search.php?${type}=${value}`;
     console.log(customUrl);
     fetch(customUrl)
       .then((response) => response.json())
-      .then((result) => setData(result));
+      .then((result) => setDataApi(result));
     setIsLoading(false);
   };
 
-  return [data, isLoading, makeFetch];
+  return [isLoading, makeFetch];
 }
 
 export default useFetch;
