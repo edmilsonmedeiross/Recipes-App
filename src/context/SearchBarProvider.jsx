@@ -6,7 +6,8 @@ export const SearchBarContext = createContext();
 function SearchBarProvider({ children }) {
   const [optionSearch, setOptionSearch] = useState({});
   const [nameSearch, setNameSearch] = useState('');
-  const [dataApi, setDataApi] = useState({});
+  const [dataApi, setDataApi] = useState({ meals: [],
+    drinks: [] });
   const [startFetch, setStartFetch] = useState(false);
 
   const values = useMemo(() => ({
