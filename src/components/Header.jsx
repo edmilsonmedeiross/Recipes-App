@@ -14,29 +14,35 @@ function Header(props) {
 
   return (
     <header>
-      <h3
+      <div className="navBarHeader">
+        <a href="./pages/Profile">
+          <button>
+            <img
+              data-testid="profile-top-btn"
+              src={ profileIcon }
+              alt="icone de perfil"
+            />
+          </button>
+        </a>
+        <div className="searchButton">
+          { isSearchIcon && (
+            <button
+              onClick={ toogleSearchBar }
+            >
+              <img
+                data-testid="search-top-btn"
+                src={ searchIcon }
+                alt="icone de pesquisa"
+              />
+            </button>)}
+        </div>
+      </div>
+      { isSearchBar && (<SearchBar />) }
+      <h2
         data-testid="page-title"
       >
         { title }
-      </h3>
-      <a href="/profile">
-        <img
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-          alt="icone de perfil"
-        />
-      </a>
-      { isSearchIcon && (
-        <button
-          onClick={ toogleSearchBar }
-        >
-          <img
-            data-testid="search-top-btn"
-            src={ searchIcon }
-            alt="icone de pesquisa"
-          />
-        </button>)}
-      { isSearchBar && (<SearchBar />) }
+      </h2>
     </header>
   );
 }

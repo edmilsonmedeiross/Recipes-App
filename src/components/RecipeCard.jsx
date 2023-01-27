@@ -5,6 +5,7 @@ function RecipeCard(props) {
   const { id, img, name, index } = props;
   return (
     <div
+      className="recipesCard"
       key={ index }
       data-testid={ `${id}-recipe-card` }
     >

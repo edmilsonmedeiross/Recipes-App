@@ -34,16 +34,18 @@ export default function Login({ history }) {
           data-testid="password-input"
         />
         <br />
-        <button
-          type="button"
-          onClick={ handleSubmit }
-          disabled={ userPassword.value.length <= Number('6') || !userEmail.value.match(
-            /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
-          ) }
-          data-testid="login-submit-btn"
-        >
-          Login
-        </button>
+        <div className="buttonLogin">
+          <button
+            type="button"
+            onClick={ handleSubmit }
+            disabled={ userPassword.value.length <= Number('6') || !userEmail.value.match(
+              /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
+            ) }
+            data-testid="login-submit-btn"
+          >
+            Login
+          </button>
+        </div>
       </form>
     </div>
   );
