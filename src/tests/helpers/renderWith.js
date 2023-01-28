@@ -3,6 +3,7 @@ import { createMemoryHistory } from 'history';
 import { Router } from 'react-router-dom';
 import { render } from '@testing-library/react';
 import SearchBarProvider from '../../context/SearchBarProvider';
+import RecipesProvider from '../../context/RecipesProvider';
 
 function withRouter(component, history) {
   return <Router history={ history }>{component}</Router>;
@@ -17,7 +18,12 @@ export function renderWithRouterAndProvider(
 ) {
   return {
     ...render(
-      <SearchBarProvider>{withRouter(component, history)}</SearchBarProvider>,
+      <RecipesProvider>
+        <SearchBarProvider>
+          {withRouter(component, history)}
+        </SearchBarProvider>
+        ,
+      </RecipesProvider>,
     ),
     history,
   };

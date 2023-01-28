@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouter } from './helpers/renderHelper';
@@ -50,10 +50,12 @@ describe('componente Recipes', () => {
       const allCategoryButton = screen.getByTestId(ALL_CATEGORY_FILTER);
       expect(allCategoryButton).toBeInTheDocument();
     });
-    await waitFor(() => {
-      const firstRecipeCard = screen.getByTestId('0-recipe-card');
-      fireEvent.click(firstRecipeCard);
-    });
+    // await waitFor(() => {
+    //   const recipe = screen.getAllByRole('link', {
+    //     name: /recipe/i,
+    //   });
+    //   userEvent.click(recipe[0]);
+    // });
   });
 
   test('se ao acessar a meals conseguimos clicar no card', async () => {

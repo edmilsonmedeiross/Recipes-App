@@ -8,7 +8,7 @@ function SearchBar() {
   const history = useHistory();
 
   const { optionSearch, setOptionSearch, nameSearch, setNameSearch,
-    startFetch, setStartFetch, dataApi } = useContext(SearchBarContext);
+    /* startFetch, setStartFetch */ dataApi } = useContext(SearchBarContext);
 
   const goFetch = async () => {
     await makeFetch(nameSearch, optionSearch.id);
@@ -36,7 +36,7 @@ function SearchBar() {
   };
 
   const handleClick = async () => {
-    setStartFetch(!startFetch);
+  // setStartFetch(!startFetch);
     await goFetch();
   };
 

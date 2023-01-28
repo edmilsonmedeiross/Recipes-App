@@ -1,43 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import useFetchRecipes from '../hooks/useFetchRecipes';
 import RecipeCard from '../components/RecipeCard';
 import '../styles/recipes.css';
+import { RecipesContext } from '../context/RecipesProvider';
 
-function Recipes(props) {
-  const { location: { pathname } } = props;
-  const isDrink = (pathname === '/drinks');
+function Recipes() {
+  const history = useHistory();
 
-  const MAX_RECIPES = 12;
+  const pathName = history.location.pathname;
+  const isDrink = (pathName === '/drinks');
+
   const MAX_CATEGORIES = 5;
 
   const { makeFetch } = useFetchRecipes();
-  const [displayRecipes, setDisplayRecipes] = useState([]);
+  const { displayRecipes, makeDisplayRecipes } = useContext(RecipesContext);
   const [displayCategories, setDisplayCategories] = useState([]);
   const [toogleButtons, setToogleButton] = useState({});
-
-  const makeDisplayRecipes = (rec) => {
-    const arrayResults = [];
-    let arrayInputs = [];
-    if (isDrink) {
-      ({ drinks: arrayInputs } = rec);
-    } else {
-      ({ meals: arrayInputs } = rec);
-    }
-
-    for (let i = 0; i < Math.min(MAX_RECIPES, arrayInputs.length); i += 1) {
-      const object = {
-        id: i,
-        img: isDrink ? arrayInputs[i].strDrinkThumb : arrayInputs[i].strMealThumb,
-        name: isDrink ? arrayInputs[i].strDrink : arrayInputs[i].strMeal,
-        foodId: isDrink ? arrayInputs[i].idDrink : arrayInputs[i].idMeal,
-      };
-      arrayResults.push(object);
-      setDisplayRecipes(arrayResults);
-    }
-  };
 
   const categories = (cat) => {
     const arrayResults = ['All'];
@@ -143,11 +124,5 @@ function Recipes(props) {
     </div>
   );
 }
-
-Recipes.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Recipes;
