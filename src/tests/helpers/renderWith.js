@@ -6,24 +6,24 @@ import SearchBarProvider from '../../context/SearchBarProvider';
 import RecipesProvider from '../../context/RecipesProvider';
 
 function withRouter(component, history) {
-  return <Router history={ history }>{component}</Router>;
+  return (
+    <Router history={ history }>
+      <SearchBarProvider>
+        <RecipesProvider>
+          {component}
+        </RecipesProvider>
+      </SearchBarProvider>
+    </Router>
+  );
 }
 
 export function renderWithRouterAndProvider(
   component,
-  {
-    initialEntries = ['/'],
-    history = createMemoryHistory({ initialEntries }),
-  } = {},
+  { initialEntries = ['/'], history = createMemoryHistory({ initialEntries }) },
 ) {
   return {
     ...render(
-      <RecipesProvider>
-        <SearchBarProvider>
-          {withRouter(component, history)}
-        </SearchBarProvider>
-        ,
-      </RecipesProvider>,
+      withRouter(component, history),
     ),
     history,
   };

@@ -1,14 +1,11 @@
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { RecipesContext } from '../context/RecipesProvider';
 import { SearchBarContext } from '../context/SearchBarProvider';
 
 function useFetch() {
-  const { makeDisplayRecipes } = useContext(RecipesContext);
   const { setDataApi } = useContext(SearchBarContext);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  console.log(history.location.pathname);
 
   const makeFetch = (value, type) => {
     if (type === 'f' && value.length >= 2) {
@@ -27,7 +24,16 @@ function useFetch() {
       .then((response) => response.json())
       .then((result) => {
         setDataApi(result);
-        makeDisplayRecipes(result);
+
+        if (result.meals === null || result.drinks === null) return;
+
+        const keys = Object.keys(result)[0];
+        const recipe = result[keys];
+
+        if (recipe.length === 1) {
+          const id = recipe[0].idDrink || recipe[0].idMeal;
+          history.push(`/${keys}/${id}`);
+        }
       });
     setIsLoading(false);
   };

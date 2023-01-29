@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,21 +6,37 @@ import useFetchRecipes from '../hooks/useFetchRecipes';
 import RecipeCard from '../components/RecipeCard';
 import '../styles/recipes.css';
 import { RecipesContext } from '../context/RecipesProvider';
+import { SearchBarContext } from '../context/SearchBarProvider';
 
 function Recipes() {
+  const { makeFetch } = useFetchRecipes();
   const history = useHistory();
+  const firstRenderRef = useRef(true);
+  const { displayRecipes, makeDisplayRecipes } = useContext(RecipesContext);
+  const { dataApi } = useContext(SearchBarContext);
+  const [displayCategories, setDisplayCategories] = useState([]);
+  const [toogleButtons, setToogleButton] = useState({});
 
   const pathName = history.location.pathname;
   const isDrink = (pathName === '/drinks');
 
   const MAX_CATEGORIES = 5;
 
-  const { makeFetch } = useFetchRecipes();
-  const { displayRecipes, makeDisplayRecipes } = useContext(RecipesContext);
-  const [displayCategories, setDisplayCategories] = useState([]);
-  const [toogleButtons, setToogleButton] = useState({});
+  useEffect(() => {
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+      return;
+    }
+
+    if (dataApi.meals === null || dataApi.drinks === null) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+
+    makeDisplayRecipes(dataApi);
+  }, [dataApi]);
 
   const categories = (cat) => {
+    console.log(cat);
     const arrayResults = ['All'];
     let arrayInputs = [];
 
