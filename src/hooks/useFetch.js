@@ -6,7 +6,6 @@ function useFetch() {
   const { setDataApi } = useContext(SearchBarContext);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
-  console.log(history.location.pathname);
 
   const makeFetch = (value, type) => {
     if (type === 'f' && value.length >= 2) {
@@ -14,14 +13,28 @@ function useFetch() {
     }
 
     setIsLoading(true);
-    const url = history.location.pathname.includes('meals') ? 'https://www.themealdb.com/api/json/v1/1/' : 'https://www.thecocktaildb.com/api/json/v1/1/';
+    const url = history.location.pathname.includes('meals')
+      ? 'https://www.themealdb.com/api/json/v1/1/'
+      : 'https://www.thecocktaildb.com/api/json/v1/1/';
     const customUrl = type === 'i'
       ? `${url}filter.php?${type}=${value}`
       : `${url}search.php?${type}=${value}`;
     console.log(customUrl);
     fetch(customUrl)
       .then((response) => response.json())
-      .then((result) => setDataApi(result));
+      .then((result) => {
+        setDataApi(result);
+
+        if (result.meals === null || result.drinks === null) return;
+
+        const keys = Object.keys(result)[0];
+        const recipe = result[keys];
+
+        if (recipe.length === 1) {
+          const id = recipe[0].idDrink || recipe[0].idMeal;
+          history.push(`/${keys}/${id}`);
+        }
+      });
     setIsLoading(false);
   };
 
