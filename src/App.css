@@ -1,9 +1,9 @@
-body {
+/* body {
   background-image: url('./images/loginImg.jpg');
   background-size: 100%;
   margin: 0;
   margin-bottom: 10px;
-}
+} */
 
 .Login, input {
   backdrop-filter: blur(13.5px);

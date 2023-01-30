@@ -19,7 +19,6 @@ function useFetch() {
     const customUrl = type === 'i'
       ? `${url}filter.php?${type}=${value}`
       : `${url}search.php?${type}=${value}`;
-    console.log(customUrl);
     fetch(customUrl)
       .then((response) => response.json())
       .then((result) => {
