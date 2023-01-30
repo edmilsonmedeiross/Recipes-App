@@ -5,14 +5,14 @@ import App from '../App';
 import { renderWithRouterAndProvider } from './helpers/renderWith';
 
 test('se ao acessar a home page o componente não é renderizado', () => {
-  renderWithRouterAndProvider(<App />);
+  renderWithRouterAndProvider(<App />, { initialEntries: ['/'] });
   const profileIcon = screen.queryByTestId('profile-top-btn');
   expect(profileIcon).not.toBeInTheDocument();
 });
 
 test('se ao acessar a meals o componente é renderizado', () => {
-  renderWithRouterAndProvider(<App />);
-  const { history } = renderWithRouterAndProvider(<App />);
+  renderWithRouterAndProvider(<App />, { initialEntries: ['/'] });
+  const { history } = renderWithRouterAndProvider(<App />, { initialEntries: ['/'] });
   act(() => {
     history.push('/meals');
   });
@@ -21,8 +21,8 @@ test('se ao acessar a meals o componente é renderizado', () => {
 });
 
 test('se a barra aparece após clicar', () => {
-  renderWithRouterAndProvider(<App />);
-  const { history } = renderWithRouterAndProvider(<App />);
+  renderWithRouterAndProvider(<App />, { initialEntries: ['/'] });
+  const { history } = renderWithRouterAndProvider(<App />, { initialEntries: ['/'] });
   act(() => {
     history.push('/meals');
   });

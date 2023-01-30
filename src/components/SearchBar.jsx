@@ -1,28 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext } from 'react';
 import useFetch from '../hooks/useFetch';
 import { SearchBarContext } from '../context/SearchBarProvider';
 
 function SearchBar() {
   const [, makeFetch] = useFetch();
-  const history = useHistory();
 
-  const { optionSearch, setOptionSearch, nameSearch, setNameSearch,
-    startFetch, setStartFetch, dataApi } = useContext(SearchBarContext);
+  const { optionSearch, setOptionSearch,
+    nameSearch, setNameSearch } = useContext(SearchBarContext);
 
   const goFetch = async () => {
     await makeFetch(nameSearch, optionSearch.id);
   };
-
-  useEffect(() => {
-    console.log(dataApi);
-    const keys = Object.keys(dataApi)[0];
-    const recipe = dataApi[keys];
-    if (recipe.length === 1) {
-      const id = recipe[0].idDrink || recipe[0].idMeal;
-      history.push(`/${keys}/${id}`);
-    }
-  }, [dataApi]);
 
   const handleChange = ({ target: { value, id, type } }) => {
     if (type === 'text') {
@@ -36,7 +24,6 @@ function SearchBar() {
   };
 
   const handleClick = async () => {
-    setStartFetch(!startFetch);
     await goFetch();
   };
 

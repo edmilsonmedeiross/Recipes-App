@@ -1,9 +1,10 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndProvider } from './helpers/renderWith';
 import SearchBar from '../components/SearchBar';
 import mockFetch from './mocks/mockFetch';
+// import App from '../App';
 
 const options = {
   ingredient: 'ingredient-search-radio',
@@ -26,23 +27,27 @@ const testRadios = (search, value) => {
 };
 
 describe('Teste da SearchBar', () => {
-  beforeEach(() => {
+  test('Verificar se a url é chamada da forma certa com ingrediente chicken', async () => {
     const spyFetch = jest.spyOn(global, 'fetch');
     spyFetch.mockImplementation(mockFetch);
-    renderWithRouterAndProvider(<SearchBar />, { initialEntries: ['/meals'] });
-  });
-
-  test('Verificar se a url é chamada da forma certa com ingrediente chicken', async () => {
+    renderWithRouterAndProvider(<SearchBar />, {
+      initialEntries: ['/meals'],
+    });
     const textBox = screen.getByRole('textbox');
     expect(textBox).toBeInTheDocument();
 
-    testRadios('ingredient', 'chicken');
+    await testRadios('ingredient', 'chicken');
     expect(global.fetch).toHaveBeenCalledWith(
       'https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken',
     );
   });
 
   test('Verificar se a url é chamada da forma certa com name soup', async () => {
+    const spyFetch = jest.spyOn(global, 'fetch');
+    spyFetch.mockImplementation(mockFetch);
+    renderWithRouterAndProvider(<SearchBar />, {
+      initialEntries: ['/meals'],
+    });
     const textBox = screen.getByRole('textbox');
     expect(textBox).toBeInTheDocument();
 
@@ -51,7 +56,13 @@ describe('Teste da SearchBar', () => {
       'https://www.themealdb.com/api/json/v1/1/search.php?s=soup',
     );
   });
+
   test('Verificar se a url é chamada da forma certa com first letter', async () => {
+    const spyFetch = jest.spyOn(global, 'fetch');
+    spyFetch.mockImplementation(mockFetch);
+    renderWithRouterAndProvider(<SearchBar />, {
+      initialEntries: ['/meals'],
+    });
     const textBox = screen.getByRole('textbox');
     expect(textBox).toBeInTheDocument();
 
@@ -94,4 +105,24 @@ describe('Teste da SearchBar', () => {
     });
     await waitFor(() => expect(history.location.pathname).toBe('/drinks/178319'));
   });
+
+  /* test('Verificar se pesquisado uma receita inexistente retorna erro', async () => {
+    const spyFetch = jest.spyOn(global, 'fetch');
+    jest.spyOn(global, 'alert');
+    spyFetch.mockImplementation(mockFetch);
+    global.alert = jest.fn();
+
+    const { history } = renderWithRouterAndProvider(<SearchBar />, {
+      initialEntries: ['/drinks'],
+    });
+
+    await waitFor(() => testRadios('name', 'xablau'));
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=xablau',
+      );
+    });
+    await waitFor(() => expect(history.location.pathname).toBe('/drinks'));
+    await waitFor(() => expect(global.alert).toHaveBeenCalled());
+  }); */
 });

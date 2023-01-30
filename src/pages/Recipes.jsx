@@ -1,45 +1,42 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import useFetchRecipes from '../hooks/useFetchRecipes';
 import RecipeCard from '../components/RecipeCard';
 import '../styles/recipes.css';
+import { RecipesContext } from '../context/RecipesProvider';
+import { SearchBarContext } from '../context/SearchBarProvider';
 
-function Recipes(props) {
-  const { location: { pathname } } = props;
-  const isDrink = (pathname === '/drinks');
-
-  const MAX_RECIPES = 12;
-  const MAX_CATEGORIES = 5;
-
+function Recipes() {
   const { makeFetch } = useFetchRecipes();
-  const [displayRecipes, setDisplayRecipes] = useState([]);
+  const history = useHistory();
+  const firstRenderRef = useRef(true);
+  const { displayRecipes, makeDisplayRecipes } = useContext(RecipesContext);
+  const { dataApi } = useContext(SearchBarContext);
   const [displayCategories, setDisplayCategories] = useState([]);
   const [toogleButtons, setToogleButton] = useState({});
 
-  const makeDisplayRecipes = (rec) => {
-    const arrayResults = [];
-    let arrayInputs = [];
-    if (isDrink) {
-      ({ drinks: arrayInputs } = rec);
-    } else {
-      ({ meals: arrayInputs } = rec);
+  const pathName = history.location.pathname;
+  const isDrink = (pathName === '/drinks');
+
+  const MAX_CATEGORIES = 5;
+
+  useEffect(() => {
+    if (firstRenderRef.current) {
+      firstRenderRef.current = false;
+      return;
     }
 
-    for (let i = 0; i < Math.min(MAX_RECIPES, arrayInputs.length); i += 1) {
-      const object = {
-        id: i,
-        img: isDrink ? arrayInputs[i].strDrinkThumb : arrayInputs[i].strMealThumb,
-        name: isDrink ? arrayInputs[i].strDrink : arrayInputs[i].strMeal,
-        foodId: isDrink ? arrayInputs[i].idDrink : arrayInputs[i].idMeal,
-      };
-      arrayResults.push(object);
-      setDisplayRecipes(arrayResults);
+    if (dataApi.meals === null || dataApi.drinks === null) {
+      return global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  };
+
+    makeDisplayRecipes(dataApi);
+  }, [dataApi]);
 
   const categories = (cat) => {
+    console.log(cat);
     const arrayResults = ['All'];
     let arrayInputs = [];
 
@@ -143,11 +140,5 @@ function Recipes(props) {
     </div>
   );
 }
-
-Recipes.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Recipes;
