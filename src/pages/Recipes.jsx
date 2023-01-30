@@ -36,7 +36,6 @@ function Recipes() {
   }, [dataApi]);
 
   const categories = (cat) => {
-    console.log(cat);
     const arrayResults = ['All'];
     let arrayInputs = [];
 
