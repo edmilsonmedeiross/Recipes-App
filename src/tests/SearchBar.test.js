@@ -60,4 +60,38 @@ describe('Teste da SearchBar', () => {
       'https://www.themealdb.com/api/json/v1/1/search.php?f=f',
     );
   });
+
+  test('Verificar se retornado apenas uma receita de comida é redirecionado para a rota da mesma', async () => {
+    const spyFetch = jest.spyOn(global, 'fetch');
+    spyFetch.mockImplementation(mockFetch);
+
+    const { history } = renderWithRouterAndProvider(<SearchBar />, {
+      initialEntries: ['/meals'],
+    });
+
+    await testRadios('name', 'Spicy Arrabiata Penne');
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://www.themealdb.com/api/json/v1/1/search.php?s=Spicy Arrabiata Penne',
+      );
+    });
+    await waitFor(() => expect(history.location.pathname).toBe('/meals/52771'));
+  });
+
+  test('Verificar se retornado apenas uma receita de bebida redirecionado para a rota da mesma', async () => {
+    const spyFetch = jest.spyOn(global, 'fetch');
+    spyFetch.mockImplementation(mockFetch);
+
+    const { history } = renderWithRouterAndProvider(<SearchBar />, {
+      initialEntries: ['/drinks'],
+    });
+
+    await testRadios('name', 'Aquamarine');
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=Aquamarine',
+      );
+    });
+    await waitFor(() => expect(history.location.pathname).toBe('/drinks/178319'));
+  });
 });
