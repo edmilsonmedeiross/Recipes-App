@@ -12,18 +12,19 @@ function useFetch() {
       return global.alert('Your search must have only 1 (one) character');
     }
 
-    setIsLoading(true);
     const url = history.location.pathname.includes('meals')
       ? 'https://www.themealdb.com/api/json/v1/1/'
       : 'https://www.thecocktaildb.com/api/json/v1/1/';
     const customUrl = type === 'i'
       ? `${url}filter.php?${type}=${value}`
       : `${url}search.php?${type}=${value}`;
-    console.log(customUrl);
+
+    setIsLoading(true);
     fetch(customUrl)
       .then((response) => response.json())
       .then((result) => {
         setDataApi(result);
+        setIsLoading(false);
 
         if (result.meals === null || result.drinks === null) return;
 
@@ -35,7 +36,6 @@ function useFetch() {
           history.push(`/${keys}/${id}`);
         }
       });
-    setIsLoading(false);
   };
 
   return [isLoading, makeFetch];

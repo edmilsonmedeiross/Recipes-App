@@ -8,13 +8,15 @@ const MAX_RECIPES = 12;
 
 function RecipesProvider({ children }) {
   const [displayRecipes, setDisplayRecipes] = useState([]);
+  const [detailRecipe, setDetailRecipe] = useState({ recipe: { route: '',
+    id: 0,
+    recipeContainer: {} } });
+
   const history = useHistory();
   const pathName = history.location.pathname;
   const isDrink = (pathName === '/drinks');
 
   const makeDisplayRecipes = (rec) => {
-    console.log('chamou');
-    console.log(rec);
     const arrayResults = [];
     let arrayInputs = [];
 
@@ -41,7 +43,9 @@ function RecipesProvider({ children }) {
   const values = useMemo(() => ({
     displayRecipes,
     makeDisplayRecipes,
-  }), [displayRecipes]);
+    detailRecipe,
+    setDetailRecipe,
+  }), [displayRecipes, detailRecipe]);
 
   return (
     <RecipesContext.Provider
