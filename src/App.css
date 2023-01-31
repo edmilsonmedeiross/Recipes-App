@@ -31,8 +31,67 @@
   margin-top: 50%;
 }
 
-.login, button {
-  margin-right: 20%;
-  text-align: center;
-  width: 82%;
+.buttonLogin {
+  margin-left: 32%;
+}
+
+.Header, header {
+  background: #dfdee0b6;
+  box-shadow: -2px 10px rgba(0, 0, 0, 0.25);
+  display: inline-block;
+  width: 100%;
+}
+
+.navBarHeader {
+  display: inline-flex;
+  margin-bottom: 15px;
+  margin-left: 25%;
+}
+
+.searchButton {
+  margin-left: 40%;
+}
+
+.Header, button {
+  background: #dfdee0b6;
+  border: none;
+  padding: 6px;
+  width: 60px;
+}
+
+
+.Header, h2 {
+  color: rgba(7, 7, 19, 0.719);
+  margin-left: 38%;
+
+}
+
+.recipesCard {
+  background: rgba(238, 235, 235, 0.842);
+  border: 1px solid rgb(8, 8, 8);
+  display: inline-block;
+  margin-bottom: -2%;
+  width: 50%;
+}
+
+.RecipeCard, img {
+  width: 100%;
+}
+
+.footer.footer {
+  background: #dfdee0b6;
+  bottom: 0;
+  box-shadow: -2px 10px rgba(0, 0, 0, 0.25);
+  display: inline-flex;
+  position: fixed;
+  width: 100%;
+
+}
+
+.iconFooterDrinks {
+  margin-left: 25%;
+}
+
+.iconFooterMeals {
+  margin-left: 25%;
 }

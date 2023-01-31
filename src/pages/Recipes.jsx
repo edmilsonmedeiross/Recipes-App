@@ -4,7 +4,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import useFetchRecipes from '../hooks/useFetchRecipes';
 import RecipeCard from '../components/RecipeCard';
-import '../styles/recipes.css';
 import { RecipesContext } from '../context/RecipesProvider';
 import { SearchBarContext } from '../context/SearchBarProvider';
 
