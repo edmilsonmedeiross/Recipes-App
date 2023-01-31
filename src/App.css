@@ -95,3 +95,14 @@
 .iconFooterMeals {
   margin-left: 25%;
 }
+
+.carroussel-container {
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
+}
+
+.carroussel-container .carroussel-card {
+  min-width: 50vw;
+  width: 50vw;
+}

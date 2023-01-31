@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { RecipesContext } from '../context/RecipesProvider';
 
 function useFetchDetail() {
-  const { detailRecipe, setDetailRecipe } = useContext(RecipesContext);
+  const { setDetailRecipe } = useContext(RecipesContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const makeFetchDetails = (recipe) => {

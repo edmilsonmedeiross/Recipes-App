@@ -21,19 +21,19 @@ function Recomendation() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div>
+    <div className="carroussel-container">
       {sixCard.map((recipe, index) => (
         <div
+          className="carroussel-card"
           key={ recipe.idDrink || recipe.idMeal }
           data-testid={ `${index}-recommendation-card` }
         >
-          <h4
+          <h6
             data-testid={ `${index}-recommendation-title` }
           >
             {recipe.strDrink || recipe.strMeal}
-          </h4>
+          </h6>
           <img
-            width={ 300 }
             src={ recipe.strDrinkThumb || recipe.strMealThumb }
             alt={ recipe.strMeal || recipe.strDrink }
           />
