@@ -17,10 +17,26 @@ function App() {
     <RecipesProvider>
       <SearchBarProvider>
         <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route exact path="/meals" component={ Recipes } />
-          <Route exact path="/drinks" component={ Recipes } />
-          <Route exact path="/meals/:id" component={ RecipeDetails } />
+          <Route
+            exact
+            path="/"
+            component={ Login }
+          />
+          <Route
+            exact
+            path="/meals"
+            component={ Recipes }
+          />
+          <Route
+            exact
+            path="/drinks"
+            component={ Recipes }
+          />
+          <Route
+            exact
+            path="/meals/:id"
+            component={ RecipeDetails }
+          />
           <Route
             exact
             path="/drinks/:id"
@@ -36,9 +52,21 @@ function App() {
             path="/drinks/:id/in-progress"
             component={ RecipeInProgress }
           />
-          <Route exact path="/profile" component={ Profile } />
-          <Route exact path="/done-recipes" component={ DoneRecipes } />
-          <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
+          <Route
+            exact
+            path="/profile"
+            component={ Profile }
+          />
+          <Route
+            exact
+            path="/done-recipes"
+            component={ DoneRecipes }
+          />
+          <Route
+            exact
+            path="/favorite-recipes"
+            component={ FavoriteRecipes }
+          />
         </Switch>
       </SearchBarProvider>
     </RecipesProvider>
