@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
 // import useFetchDetail from '../hooks/useFetchDetail';
 
 function CardDetails() {
+  const history = useHistory();
   // const [isLoading] = useFetchDetail();
 
   // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
   // const [isRecipeDone, setIsRecipeDone] = useState(false);
   const { detailRecipe: { recipe: { recipeContainer,
-    route } } } = useContext(RecipesContext);
+    route, id } } } = useContext(RecipesContext);
 
   // const [isRecipeInProgress, setIsRecipeInProgress] = useState(true);
   // const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -85,6 +87,7 @@ function CardDetails() {
         className="start-recipe-btn"
         type="button"
         data-testid="start-recipe-btn"
+        onClick={ () => history.push(`/${route}/${id}/in-progress`) }
       >
         Continue Recipe
       </button>
