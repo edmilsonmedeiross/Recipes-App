@@ -28,7 +28,7 @@ function CardDetails() {
         data-testid="recipe-category"
       >
         {recipeContainer[0].strCategory || recipeContainer[0].strDrink}
-        {route === 'drinks' && <h4>{recipeContainer[0].strAlcoholic}</h4>}
+        {route === 'drinks' && <p>{recipeContainer[0].strAlcoholic}</p>}
       </h4>
       {route === 'meals' && <h4>{recipeContainer[0].strTags}</h4>}
       <img
@@ -42,19 +42,22 @@ function CardDetails() {
       >
         {recipeContainer[0].strInstructions}
       </h6>
+      {console.log(filteredIngredients)}
+      {console.log(filteredMeassures)}
       {filteredIngredients.map((ing, index) => (
         <p
           key={ ing + index }
           data-testid={ `${index}-ingredient-name-and-measure` }
         >
-          {`${ing[1]}: ${filteredMeassures[index][1]}`}
+          {`${ing[1]}: ${filteredMeassures[index] ? filteredMeassures[index][1] : ''}`}
         </p>
       ))}
       {route === 'meals' && (
         <iframe
+          width="100%"
+          height="360"
           data-testid="video"
-          src={ recipeContainer[0].strYoutube }
-          allow="autoplay; encrypted-media"
+          src={ recipeContainer[0].strYoutube.replace('watch?v=', 'embed/') }
           title="video"
         />)}
     </div>
