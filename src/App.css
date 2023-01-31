@@ -100,9 +100,18 @@
   display: flex;
   overflow-x: scroll;
   width: 100%;
+  padding-bottom: 15px;
 }
 
 .carroussel-container .carroussel-card {
   min-width: 50vw;
   width: 50vw;
+}
+
+.start-recipe-btn {
+  position: fixed;
+  padding: -10px 0;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
 }
