@@ -1,12 +1,13 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useContext, useState, useEffect } from 'react';
 import { RecipesContext } from '../context/RecipesProvider';
 // import useFetchDetail from '../hooks/useFetchDetail';
 
 function CardDetails() {
   // const [isLoading] = useFetchDetail();
+  const [isRecipeInProgress, setIsRecipeInProgress] = useState(false);
   const { detailRecipe: { recipe: { recipeContainer,
-    route } } } = useContext(RecipesContext);
-
+    route, id } } } = useContext(RecipesContext);
   if (!recipeContainer || !Object.keys(recipeContainer).length) return;
 
   const ingredients = Object.entries(recipeContainer[0]);
@@ -16,6 +17,22 @@ function CardDetails() {
   const meassures = Object.entries(recipeContainer[0]);
   const filteredMeassures = meassures.filter((meassure) => meassure[0]
     .includes('strMeasure') && meassure[1]);
+
+  const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  // const [isRecipeDone, setIsRecipeDone] = useState(false);
+
+  useEffect(() => {
+    // console.log(Object.keys(inProgressRecipe[route]).some((item) => item === id));
+    if (inProgressRecipe) {
+      const isInProgress = Object.keys(
+        inProgressRecipe[route],
+      ).some((item) => item === id);
+      setIsRecipeInProgress(isInProgress);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -64,8 +81,9 @@ function CardDetails() {
         className="start-recipe-btn"
         type="button"
         data-testid="start-recipe-btn"
+        // hidden={ isRecipeDone }
       >
-        Start Recipe
+        {isRecipeInProgress ? 'Continue Recipe' : 'Start Recipe'}
       </button>
     </div>
   );
