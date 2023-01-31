@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 function RecipeCard(props) {
   const { id, img, name, index, redirectRoute } = props;
+  console.log(redirectRoute);
 
   return (
     <Link to={ redirectRoute }>

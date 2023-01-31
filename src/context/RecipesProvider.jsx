@@ -10,6 +10,9 @@ const MAX_INGREDIENTS_MEALS = 20;
 
 function RecipesProvider({ children }) {
   const [displayRecipes, setDisplayRecipes] = useState([]);
+  const [detailRecipe, setDetailRecipe] = useState({ recipe: { route: '',
+    id: 0,
+    recipeContainer: {} } });
   const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [displayRecipeInProgress, setDisplayRecipeInProgress] = useState({
     img: '',
@@ -87,11 +90,13 @@ function RecipesProvider({ children }) {
   const values = useMemo(() => ({
     displayRecipes,
     makeDisplayRecipes,
+    detailRecipe,
+    setDetailRecipe,
     recipeInProgress,
     makeRecipeInProgress,
     displayRecipeInProgress,
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [displayRecipes, recipeInProgress, displayRecipeInProgress]);
+  }), [displayRecipes, detailRecipe, recipeInProgress, displayRecipeInProgress]);
 
   return (
     <RecipesContext.Provider
