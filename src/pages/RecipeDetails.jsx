@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import CardDetails from '../components/CardDetails';
 import { RecipesContext } from '../context/RecipesProvider';
+import CardDetails from '../components/cardDetaisl';
 import useFetchDetail from '../hooks/useFetchDetail';
+import Recomendation from '../components/Recomendation';
 
 function RecipeDetails() {
   const { id: idRecipe } = useParams();
@@ -19,6 +20,7 @@ function RecipeDetails() {
       recipe: { ...detailRecipe.recipe, route, id: idRecipe } });
 
     setStartFetch(!startFetch);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [idRecipe]);
 
   useEffect(() => {
@@ -30,6 +32,7 @@ function RecipeDetails() {
       await makeFetchDetails(detailRecipe);
     };
     goFetch();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startFetch]);
 
   if (isLoading || !Object.keys(detailRecipe).length) {
@@ -40,9 +43,8 @@ function RecipeDetails() {
   return (
     <div>
       {isLoading && <h2>Carregando...</h2>}
-      <h1>oioioioioioi</h1>
-      <h1>Testando</h1>
       <CardDetails />
+      <Recomendation />
       <div>{idRecipe}</div>
     </div>
   );

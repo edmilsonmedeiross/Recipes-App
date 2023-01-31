@@ -33,6 +33,7 @@ function CardDetails() {
       {route === 'meals' && <h4>{recipeContainer[0].strTags}</h4>}
       <img
         data-testid="recipe-photo"
+        width={ 400 }
         src={ recipeContainer[0].strMealThumb || recipeContainer[0].strDrinkThumb }
         alt={ recipeContainer[0].strMeal || recipeContainer[0].strDrink }
       />
@@ -46,7 +47,7 @@ function CardDetails() {
           key={ ing + index }
           data-testid={ `${index}-ingredient-name-and-measure` }
         >
-          {`${ing[1]} ${filteredMeassures[index][1]}`}
+          {`${ing[1]}: ${filteredMeassures[index][1]}`}
         </p>
       ))}
       {route === 'meals' && (
