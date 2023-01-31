@@ -9,6 +9,7 @@ function RecipeCard(props) {
   return (
     <Link to={ redirectRoute }>
       <div
+        className="recipesCard"
         key={ index }
         data-testid={ `${id}-recipe-card` }
       >
