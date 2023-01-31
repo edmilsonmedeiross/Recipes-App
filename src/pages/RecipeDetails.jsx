@@ -43,6 +43,18 @@ function RecipeDetails() {
     <div>
       {isLoading && <h2>Carregando...</h2>}
       <CardDetails />
+      <button
+        type="button"
+        data-testid="share-btn"
+      >
+        Share
+      </button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+      >
+        Favorite
+      </button>
       <Recomendation />
       <div>{idRecipe}</div>
     </div>
