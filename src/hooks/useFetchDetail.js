@@ -6,14 +6,16 @@ function useFetchDetail() {
   const [isLoading, setIsLoading] = useState(false);
 
   const makeFetchDetails = (recipe) => {
-    const url = recipe.route === 'meals'
-      ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe.id}`
-      : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipe.id}`;
+    console.log(recipe.recipe);
     setIsLoading(true);
+    const url = recipe.recipe.route === 'meals'
+      ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe.recipe.id}`
+      : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipe.recipe.id}`;
     fetch(url)
       .then((response) => response.json())
       .then((data) => setDetailRecipe({ ...detailRecipe,
-        recipe: { recipeContainer: data.meals || data.drinks } }));
+        recipe: { ...detailRecipe.recipe,
+          recipeContainer: data.meals || data.drinks } }));
     setIsLoading(false);
   };
 
