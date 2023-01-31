@@ -7,6 +7,9 @@ import { renderWithRouter } from './helpers/renderHelper';
 const ALL_CATEGORY_FILTER = 'All-category-filter';
 
 describe('componente Recipes', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
   test('se ao acessar a meals o componente é renderizado', async () => {
     renderWithRouter(<App />);
     const { history } = renderWithRouter(<App />);
