@@ -4,8 +4,29 @@ import { RecipesContext } from '../context/RecipesProvider';
 
 function CardDetails() {
   // const [isLoading] = useFetchDetail();
+
+  // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  // const [isRecipeDone, setIsRecipeDone] = useState(false);
   const { detailRecipe: { recipe: { recipeContainer,
     route } } } = useContext(RecipesContext);
+
+  // const [isRecipeInProgress, setIsRecipeInProgress] = useState(true);
+  // const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // useEffect(() => {
+  //   // console.log(Object.keys(inProgressRecipe[route]).some((item) => item === id));
+  //   if (inProgressRecipe && inProgressRecipe[route]) {
+  //     const isInProgress = Object.keys(
+  //       inProgressRecipe[route],
+  //     ).some((item) => item === id);
+  //     setIsRecipeInProgress(isInProgress);
+  //   } else {
+  //     localStorage.setItem(
+  //       'inProgressRecipes',
+  //       JSON.stringify({ meals: {}, drinks: {} }),
+  //     );
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [inProgressRecipe]);
 
   if (!recipeContainer || !Object.keys(recipeContainer).length) return;
 
@@ -65,7 +86,7 @@ function CardDetails() {
         type="button"
         data-testid="start-recipe-btn"
       >
-        Start Recipe
+        Continue Recipe
       </button>
     </div>
   );
