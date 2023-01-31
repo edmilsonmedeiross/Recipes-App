@@ -1,25 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function RecipeCard(props) {
-  const { id, img, name, index } = props;
+  const { id, img, name, index, redirectRoute } = props;
+
   return (
-    <div
-      className="recipesCard"
-      key={ index }
-      data-testid={ `${id}-recipe-card` }
-    >
-      <img
-        alt="recipe"
-        src={ img }
-        data-testid={ `${id}-card-img` }
-      />
+    <Link to={ redirectRoute }>
       <div
-        data-testid={ `${id}-card-name` }
+        className="recipesCard"
+        key={ index }
+        data-testid={ `${id}-recipe-card` }
       >
-        { name }
+        <img
+          alt="recipe"
+          src={ img }
+          data-testid={ `${id}-card-img` }
+        />
+        <div
+          data-testid={ `${id}-card-name` }
+        >
+          { name }
+        </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -28,6 +32,7 @@ RecipeCard.propTypes = {
   id: PropTypes.number.isRequired,
   img: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  redirectRoute: PropTypes.string.isRequired,
 };
 
 export default RecipeCard;
