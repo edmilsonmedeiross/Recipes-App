@@ -60,6 +60,13 @@ function CardDetails() {
           src={ recipeContainer[0].strYoutube.replace('watch?v=', 'embed/') }
           title="video"
         />)}
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Start Recipe
+      </button>
     </div>
   );
 }
