@@ -12,10 +12,9 @@ function RecipeDetails() {
   const [isLoading, makeFetchDetails] = useFetchDetail();
   const firstRenderRef = useRef(true);
   const [startFetch, setStartFetch] = useState(false);
+  const route = history.location.pathname.split('/')[1];
 
   useEffect(() => {
-    const route = history.location.pathname.split('/')[1];
-
     setDetailRecipe({ ...detailRecipe,
       recipe: { ...detailRecipe.recipe, route, id: idRecipe } });
 
