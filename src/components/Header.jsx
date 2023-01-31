@@ -15,16 +15,16 @@ function Header(props) {
   return (
     <header>
       <div className="navBarHeader">
-        <a href="./pages/Profile">
-          <button>
+        <div>
+          <a href="/profile">
             <img
               data-testid="profile-top-btn"
               src={ profileIcon }
               alt="icone de perfil"
             />
-          </button>
-        </a>
-        <div className="searchButton">
+          </a>
+        </div>
+        <div>
           { isSearchIcon && (
             <button
               onClick={ toogleSearchBar }

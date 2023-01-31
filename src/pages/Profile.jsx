@@ -9,6 +9,7 @@ function Profile() {
         isSearchIcon={ false }
         title="Profile"
       />
+      <Header />
       <Footer />
     </div>
   );
