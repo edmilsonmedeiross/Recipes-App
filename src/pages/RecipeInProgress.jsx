@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
 import useFetchRecipes from '../hooks/useFetchRecipes';
-import '../styles/textDecoration.css';
 
 function RecipeInProgress() {
   // Estado global

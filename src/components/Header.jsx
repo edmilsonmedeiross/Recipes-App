@@ -24,7 +24,7 @@ function Header(props) {
             />
           </a>
         </div>
-        <div>
+        <div className="searchButton">
           { isSearchIcon && (
             <button
               onClick={ toogleSearchBar }
