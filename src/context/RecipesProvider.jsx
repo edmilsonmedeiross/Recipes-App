@@ -13,6 +13,9 @@ function RecipesProvider({ children }) {
   const [detailRecipe, setDetailRecipe] = useState({ recipe: { route: '',
     id: 0,
     recipeContainer: {} } });
+
+  const [allRecipes, setAllRecipes] = useState({ recipes: { meals: {}, drinks: {} } });
+
   const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [displayRecipeInProgress, setDisplayRecipeInProgress] = useState({
     img: '',
@@ -95,8 +98,11 @@ function RecipesProvider({ children }) {
     recipeInProgress,
     makeRecipeInProgress,
     displayRecipeInProgress,
+    allRecipes,
+    setAllRecipes,
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [displayRecipes, detailRecipe, recipeInProgress, displayRecipeInProgress]);
+  }), [displayRecipes, detailRecipe,
+    recipeInProgress, displayRecipeInProgress, allRecipes]);
 
   return (
     <RecipesContext.Provider
