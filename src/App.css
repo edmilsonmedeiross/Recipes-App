@@ -1,9 +1,9 @@
-/* body {
+* body {
   background-image: url('./images/loginImg.jpg');
   background-size: 100%;
   margin: 0;
   margin-bottom: 10px;
-} */
+}
 
 .Login, input {
   backdrop-filter: blur(13.5px);
@@ -23,7 +23,6 @@
   text-align: center;
 }
 
-
 .login, form {
   display: flex;
   flex-direction: column;
@@ -36,7 +35,7 @@
 }
 
 .Header, header {
-  background: #dfdee0b6;
+  background: #dfdee0ee;
   box-shadow: -2px 10px rgba(0, 0, 0, 0.25);
   display: inline-block;
   width: 100%;
@@ -45,55 +44,65 @@
 .navBarHeader {
   display: inline-flex;
   margin-bottom: 15px;
-  margin-left: 25%;
+  margin-left: 15%;
+  margin-top: 5%;
 }
 
 .searchButton {
-  margin-left: 40%;
+  border-bottom: none;
+  display: flex;
+  margin-left: 185px;
+  margin-top: -2%;
+  width: 15%;
+
 }
 
 .Header, button {
-  background: #dfdee0b6;
-  border: none;
+  background: #dfdee0ee;
+  border: 1px solid rgb(8, 8, 8);
   padding: 6px;
+  position: relative;
   width: 60px;
 }
 
-
 .Header, h2 {
-  color: rgba(7, 7, 19, 0.719);
-  margin-left: 38%;
-
+  margin-left: 40%;
 }
 
 .recipesCard {
-  background: rgba(238, 235, 235, 0.842);
+  background: #dfdee0ee;
   border: 1px solid rgb(8, 8, 8);
   display: inline-block;
-  margin-bottom: -2%;
+  margin-bottom: 10%;
   width: 50%;
 }
 
 .RecipeCard, img {
+  background: #dfdee0ee;
+  margin-top: -21%;
   width: 100%;
 }
 
 .footer.footer {
-  background: #dfdee0b6;
+  background: #dfdee0ee;
   bottom: 0;
   box-shadow: -2px 10px rgba(0, 0, 0, 0.25);
   display: inline-flex;
+  height: 36px;
   position: fixed;
   width: 100%;
-
 }
 
 .iconFooterDrinks {
   margin-left: 25%;
+  margin-top: 2%;
+  width: 9%;
 }
 
 .iconFooterMeals {
   margin-left: 25%;
+  margin-top: 2%;
+  width: 9%;
 }
 
 .carroussel-container {
