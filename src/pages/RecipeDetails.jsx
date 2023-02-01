@@ -36,7 +36,6 @@ function RecipeDetails() {
   }, [startFetch]);
 
   if (isLoading || !Object.keys(detailRecipe).length) {
-    console.log(isLoading);
     return <h2>Carregando...</h2>;
   }
 

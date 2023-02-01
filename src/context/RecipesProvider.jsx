@@ -26,9 +26,38 @@ function RecipesProvider({ children }) {
     ingredients: [],
   });
 
+  const [favoriteRecipe, setFavoriteRecipes] = useState([]);
+
   const history = useHistory();
   const pathName = history.location.pathname;
   const isDrink = (pathName.includes('/drinks'));
+
+  const favoriteRecipesKey = 'favoriteRecipes';
+
+  // Gravar no localStorage os itens setados
+  const setLocalStorage = (chaveLocalStorage, objectLocalStorage) => {
+    localStorage.setItem(chaveLocalStorage, JSON.stringify(objectLocalStorage));
+  };
+
+  // Busca no localStorage os itens setados
+  const getLocalStorage = (chaveLocalStorage, funcao) => {
+    const contentLocalStorage = JSON.parse(localStorage.getItem(chaveLocalStorage));
+    if (contentLocalStorage) {
+      funcao(contentLocalStorage);
+    }
+  };
+
+  const addFavorite = (favorite) => {
+    const favorites = [...favoriteRecipe, ...favorite];
+    setFavoriteRecipes(favorites);
+    setLocalStorage(favoriteRecipesKey, favorites);
+  };
+
+  const removeFavorite = (id) => {
+    const favorites = favoriteRecipe.filter((favorite) => favorite.id !== id);
+    setFavoriteRecipes(favorites);
+    setLocalStorage(favoriteRecipesKey, [...favorites]);
+  };
 
   const getIngredients = (object) => {
     const arrayOutput = [];
@@ -84,9 +113,8 @@ function RecipesProvider({ children }) {
         instructions: arrayInputs[0].strInstructions,
         ingredients: getIngredients(arrayInputs[0]),
       };
-      setRecipeInProgress([arrayInputs]);
+      setRecipeInProgress(arrayInputs);
       setDisplayRecipeInProgress(object);
-      console.log(object);
     }
   };
 
@@ -100,9 +128,15 @@ function RecipesProvider({ children }) {
     displayRecipeInProgress,
     allRecipes,
     setAllRecipes,
+    favoriteRecipe,
+    setFavoriteRecipes,
+    addFavorite,
+    removeFavorite,
+    setLocalStorage,
+    getLocalStorage,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [displayRecipes, detailRecipe,
-    recipeInProgress, displayRecipeInProgress, allRecipes]);
+    recipeInProgress, displayRecipeInProgress, allRecipes, favoriteRecipe]);
 
   return (
     <RecipesContext.Provider
