@@ -12,10 +12,9 @@ function RecipeDetails() {
   const [isLoading, makeFetchDetails] = useFetchDetail();
   const firstRenderRef = useRef(true);
   const [startFetch, setStartFetch] = useState(false);
+  const route = history.location.pathname.split('/')[1];
 
   useEffect(() => {
-    const route = history.location.pathname.split('/')[1];
-
     setDetailRecipe({ ...detailRecipe,
       recipe: { ...detailRecipe.recipe, route, id: idRecipe } });
 
@@ -43,6 +42,59 @@ function RecipeDetails() {
     <div>
       {isLoading && <h2>Carregando...</h2>}
       <CardDetails />
+      <button
+        type="button"
+        data-testid="share-btn"
+        title="oi"
+        onClick={ ({ target }) => {
+          const { location: { origin } } = window;
+          navigator.clipboard.writeText(`${origin}/${route}/${idRecipe}`);
+          target.textContent = 'Link copied!';
+          global.alert('Link copied!');
+        } }
+      >
+        Share
+      </button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ () => {
+          const { recipe } = detailRecipe;
+          const { strArea, strCategory, strAlcoholic } = recipe.recipeContainer[0];
+          const favorite = {
+            id: recipe.id,
+            type: route.substring(0, route.length - 1),
+            nationality: strArea || '',
+            category: strCategory || '',
+            alcoholicOrNot: strAlcoholic || '',
+            name: recipe.recipeContainer[0].strDrink
+              || recipe.recipeContainer[0].strMeal,
+            image: recipe.recipeContainer[0].strDrinkThumb
+              || recipe.recipeContainer[0].strMealThumb,
+          };
+          console.log(recipe);
+          console.log(favorite);
+          const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+          if (favoriteRecipes) {
+            const isFavorite = favoriteRecipes.some((item) => item.id === recipe.id);
+            if (isFavorite) {
+              const newFavoriteRecipes = favoriteRecipes.filter(
+                (item) => item.id !== recipe.id,
+              );
+              localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipes));
+            } else {
+              localStorage.setItem('favoriteRecipes', JSON.stringify(
+                [...favoriteRecipes, favorite],
+              ));
+            }
+          } else {
+            localStorage.setItem('favoriteRecipes', JSON.stringify([favorite]));
+          }
+        } }
+
+      >
+        Favorite
+      </button>
       <Recomendation />
       <div>{idRecipe}</div>
     </div>

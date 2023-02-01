@@ -1,11 +1,34 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
 // import useFetchDetail from '../hooks/useFetchDetail';
 
 function CardDetails() {
+  const history = useHistory();
   // const [isLoading] = useFetchDetail();
+
+  // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  // const [isRecipeDone, setIsRecipeDone] = useState(false);
   const { detailRecipe: { recipe: { recipeContainer,
-    route } } } = useContext(RecipesContext);
+    route, id } } } = useContext(RecipesContext);
+
+  // const [isRecipeInProgress, setIsRecipeInProgress] = useState(true);
+  // const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // useEffect(() => {
+  //   // console.log(Object.keys(inProgressRecipe[route]).some((item) => item === id));
+  //   if (inProgressRecipe && inProgressRecipe[route]) {
+  //     const isInProgress = Object.keys(
+  //       inProgressRecipe[route],
+  //     ).some((item) => item === id);
+  //     setIsRecipeInProgress(isInProgress);
+  //   } else {
+  //     localStorage.setItem(
+  //       'inProgressRecipes',
+  //       JSON.stringify({ meals: {}, drinks: {} }),
+  //     );
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [inProgressRecipe]);
 
   if (!recipeContainer || !Object.keys(recipeContainer).length) return;
 
@@ -28,7 +51,7 @@ function CardDetails() {
         data-testid="recipe-category"
       >
         {recipeContainer[0].strCategory || recipeContainer[0].strDrink}
-        {route === 'drinks' && <h4>{recipeContainer[0].strAlcoholic}</h4>}
+        {route === 'drinks' && <p>{recipeContainer[0].strAlcoholic}</p>}
       </h4>
       {route === 'meals' && <h4>{recipeContainer[0].strTags}</h4>}
       <img
@@ -42,21 +65,32 @@ function CardDetails() {
       >
         {recipeContainer[0].strInstructions}
       </h6>
+      {console.log(filteredIngredients)}
+      {console.log(filteredMeassures)}
       {filteredIngredients.map((ing, index) => (
         <p
           key={ ing + index }
           data-testid={ `${index}-ingredient-name-and-measure` }
         >
-          {`${ing[1]}: ${filteredMeassures[index][1]}`}
+          {`${ing[1]}: ${filteredMeassures[index] ? filteredMeassures[index][1] : ''}`}
         </p>
       ))}
       {route === 'meals' && (
         <iframe
+          width="100%"
+          height="360"
           data-testid="video"
-          src={ recipeContainer[0].strYoutube }
-          allow="autoplay; encrypted-media"
+          src={ recipeContainer[0].strYoutube.replace('watch?v=', 'embed/') }
           title="video"
         />)}
+      <button
+        className="start-recipe-btn"
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => history.push(`/${route}/${id}/in-progress`) }
+      >
+        Continue Recipe
+      </button>
     </div>
   );
 }
