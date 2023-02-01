@@ -3,7 +3,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import { RecipesContext } from '../context/RecipesProvider';
 import useFetchRecipes from '../hooks/useFetchRecipes';
-import '../styles/textDecoration.css';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
