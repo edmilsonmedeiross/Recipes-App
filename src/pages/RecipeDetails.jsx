@@ -10,7 +10,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RecipeDetails() {
   // Estado global
   const { detailRecipe, setDetailRecipe, setId, getLocalStorage,
-    isFavorite, setFavoriteRecipes, handlekFavoriteDetails,
+    isFavorite, setFavoriteRecipes, handleFavoriteDetails,
   } = useContext(RecipesContext);
 
   // Estado local
@@ -72,7 +72,7 @@ function RecipeDetails() {
       </button>
       <button
         data-testid="favorite-btn"
-        onClick={ handlekFavoriteDetails }
+        onClick={ handleFavoriteDetails }
         src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
       >
         Favorite

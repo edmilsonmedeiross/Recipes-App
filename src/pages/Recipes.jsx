@@ -32,6 +32,7 @@ function Recipes() {
     }
 
     makeDisplayRecipes(dataApi);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataApi]);
 
   const categories = (cat) => {

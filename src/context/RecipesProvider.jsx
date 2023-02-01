@@ -1,28 +1,11 @@
 import React, { createContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import copy from 'clipboard-copy';
+import { MAX_RECIPES, MAX_INGREDIENTS_DRINKS, MAX_INGREDIENTS_MEALS, favoriteRecipesKey,
+  doneRecipesKey, defDisplayRIP, defDetailRecipe } from '../constants/constants';
 
 // Criação do contexto
 export const RecipesContext = createContext();
-
-// Constantes
-const MAX_RECIPES = 12;
-const MAX_INGREDIENTS_DRINKS = 15;
-const MAX_INGREDIENTS_MEALS = 20;
-const favoriteRecipesKey = 'favoriteRecipes';
-const defDisplayRIP = {
-  img: '',
-  name: '',
-  foodId: '',
-  category: '',
-  instructions: '',
-  ingredients: [],
-};
-const defDetailRecipe = { recipe: { route: '',
-  id: 0,
-  recipeContainer: {},
-  recomendation: [] } };
 
 // Criação do provider
 function RecipesProvider({ children }) {
@@ -39,7 +22,7 @@ function RecipesProvider({ children }) {
   const [favoriteRecipe, setFavoriteRecipes] = useState([]);
   const [allRecipes, setAllRecipes] = useState([]);
   const [detailRecipe, setDetailRecipe] = useState(defDetailRecipe);
-  const [linkCopied, setLinkCopied] = useState(false);
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   // Gravar no localStorage os itens setados
   const setLocalStorage = (chaveLocalStorage, objectLocalStorage) => {
@@ -52,6 +35,12 @@ function RecipesProvider({ children }) {
     if (contentLocalStorage) {
       funcao(contentLocalStorage);
     }
+  };
+
+  const getNow = () => {
+    const timeElapsed = Date.now();
+    const today = new Date(timeElapsed);
+    return today.toISOString();
   };
 
   // Adiciona favorito ao estado e localStorage
@@ -77,6 +66,26 @@ function RecipesProvider({ children }) {
     const favorites = favoriteRecipe.filter((favorite) => favorite.id !== idFavorite);
     setFavoriteRecipes(favorites);
     setLocalStorage(favoriteRecipesKey, [...favorites]);
+  };
+
+  // Adiciona favorito ao estado e localStorage
+  const addDoneRecipe = (ref) => {
+    const newDone = [{
+      id: isDrink ? ref.idDrink : ref.idMeal,
+      nationality: ref.strArea || '',
+      name: isDrink ? ref.strDrink : ref.strMeal,
+      category: ref.strCategory,
+      image: isDrink
+        ? ref.strDrinkThumb
+        : ref.strMealThumb,
+      tags: ref.strTags ? ref.strTags.split(',') : [],
+      alcoholicOrNot: isDrink ? ref.strAlcoholic : '',
+      type: isDrink ? 'drink' : 'meal',
+      doneDate: getNow(),
+    }];
+    const doneRecipesArray = [...doneRecipes, ...newDone];
+    setDoneRecipes(doneRecipesArray);
+    setLocalStorage(doneRecipesKey, doneRecipesArray);
   };
 
   // Pega os ingredientes do objeto e transforma em array
@@ -142,11 +151,10 @@ function RecipesProvider({ children }) {
   };
 
   // Função para copiar link para clipboard
-  const handleClickShare = () => {
-    const currentUrl = `http://localhost:3000${pathName}`;
-    const url = currentUrl.replace('/in-progress', '');
-    copy(url);
-    setLinkCopied(true);
+  const handleClickShare = ({ target }, idShare, typeFood) => {
+    const { location: { origin } } = window;
+    navigator.clipboard.writeText(`${origin}/${typeFood}/${idShare}`);
+    target.textContent = 'Link copied!';
   };
 
   // Função que determina se a receita atual é favorita
@@ -169,13 +177,19 @@ function RecipesProvider({ children }) {
   };
 
   // Função para setar favorito localStorage
-  const handlekFavoriteDetails = () => {
+  const handleFavoriteDetails = () => {
     const thisFavorite = isFavorite();
     if (thisFavorite) {
       removeFavorite(id);
     } else {
       addFavorite(detailRecipe.recipe.recipeContainer[0]);
     }
+  };
+
+  // Função para setar favorito localStorage
+  const handleFinish = () => {
+    addDoneRecipe(recipeInProgress[0]);
+    history.push('/done-recipes');
   };
 
   const values = useMemo(() => ({
@@ -193,18 +207,20 @@ function RecipesProvider({ children }) {
     addFavorite,
     removeFavorite,
     handleFavoriteProgress,
-    handlekFavoriteDetails,
+    handleFavoriteDetails,
     setLocalStorage,
     getLocalStorage,
     handleClickShare,
     isFavorite,
-    linkCopied,
     isDrink,
     setId,
+    handleFinish,
+    doneRecipes,
+    setDoneRecipes,
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [displayRecipes, detailRecipe,
     recipeInProgress, displayRecipeInProgress,
-    allRecipes, favoriteRecipe, linkCopied]);
+    allRecipes, favoriteRecipe, doneRecipes]);
 
   return (
     <RecipesContext.Provider
