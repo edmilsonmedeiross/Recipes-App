@@ -9,13 +9,16 @@ const MAX_INGREDIENTS_DRINKS = 15;
 const MAX_INGREDIENTS_MEALS = 20;
 
 function RecipesProvider({ children }) {
-  const [displayRecipes, setDisplayRecipes] = useState([]);
-  const [detailRecipe, setDetailRecipe] = useState({ recipe: { route: '',
-    id: 0,
-    recipeContainer: {},
-    recomendation: [] } });
+  const history = useHistory();
+  const pathName = history.location.pathname;
+  const isDrink = (pathName.includes('/drinks'));
 
+  const favoriteRecipesKey = 'favoriteRecipes';
+
+  const [displayRecipes, setDisplayRecipes] = useState([]);
   const [recipeInProgress, setRecipeInProgress] = useState([]);
+  const [favoriteRecipe, setFavoriteRecipes] = useState([]);
+  const [allRecipes, setAllRecipes] = useState([]);
   const [displayRecipeInProgress, setDisplayRecipeInProgress] = useState({
     img: '',
     name: '',
@@ -25,13 +28,10 @@ function RecipesProvider({ children }) {
     ingredients: [],
   });
 
-  const [favoriteRecipe, setFavoriteRecipes] = useState([]);
-
-  const history = useHistory();
-  const pathName = history.location.pathname;
-  const isDrink = (pathName.includes('/drinks'));
-
-  const favoriteRecipesKey = 'favoriteRecipes';
+  const [detailRecipe, setDetailRecipe] = useState({ recipe: { route: '',
+    id: 0,
+    recipeContainer: {},
+    recomendation: [] } });
 
   // Gravar no localStorage os itens setados
   const setLocalStorage = (chaveLocalStorage, objectLocalStorage) => {
