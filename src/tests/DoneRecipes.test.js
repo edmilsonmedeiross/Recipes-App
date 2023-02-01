@@ -3,6 +3,7 @@ import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import { renderWithRouter } from './helpers/renderHelper';
+import { DONE_RECIPES_ROUTE } from '../constants/constants';
 
 describe('componente Done Recipes', () => {
   afterEach(() => {
@@ -12,7 +13,7 @@ describe('componente Done Recipes', () => {
     renderWithRouter(<App />);
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(DONE_RECIPES_ROUTE);
     });
     await waitFor(() => {
       const allButton = screen.getByRole('button', { name: /all/i });
@@ -28,7 +29,7 @@ describe('componente Done Recipes', () => {
     renderWithRouter(<App />);
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(DONE_RECIPES_ROUTE);
     });
     await waitFor(() => {
       const allButton = screen.getByRole('button', { name: /all/i });
@@ -40,7 +41,7 @@ describe('componente Done Recipes', () => {
     renderWithRouter(<App />);
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(DONE_RECIPES_ROUTE);
     });
     await waitFor(() => {
       const mealsButton = screen.getByRole('button', { name: /meals/i });
@@ -52,7 +53,7 @@ describe('componente Done Recipes', () => {
     renderWithRouter(<App />);
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push('/done-recipes');
+      history.push(DONE_RECIPES_ROUTE);
     });
     await waitFor(() => {
       const drinksButton = screen.getByRole('button', { name: /drinks/i });
