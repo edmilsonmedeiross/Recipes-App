@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
 import useFetchRecipes from '../hooks/useFetchRecipes';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { favoriteRecipesKey, inProgressRecipesKey,
+  doneRecipesKey } from '../constants/constants';
 
 function RecipeInProgress() {
   // Estado global
   const { displayRecipeInProgress, makeRecipeInProgress,
     isFavorite, setFavoriteRecipes, handleFavoriteProgress,
-    getLocalStorage, setLocalStorage,
-    linkCopied, handleClickShare, isDrink, setId } = useContext(RecipesContext);
+    getLocalStorage, setLocalStorage, setDoneRecipes,
+    handleClickShare, isDrink, setId,
+    handleFinish } = useContext(RecipesContext);
 
   // Estado local
   const [checkedIngredients, setCheckedIngredients] = useState({});
@@ -18,10 +21,8 @@ function RecipeInProgress() {
   // Hooks
   const { id } = useParams();
   const { makeFetch } = useFetchRecipes();
-
-  // Variaveis
-  const inProgressRecipesKey = 'inProgressRecipes';
-  const favoriteRecipesKey = 'favoriteRecipes';
+  const history = useHistory();
+  const route = history.location.pathname.split('/')[1];
 
   // Funções
   // Função que controla os estados dos ingredientes
@@ -63,6 +64,7 @@ function RecipeInProgress() {
     getDetails();
     getLocalStorage(inProgressRecipesKey, setCheckedIngredients);
     getLocalStorage(favoriteRecipesKey, setFavoriteRecipes);
+    getLocalStorage(doneRecipesKey, setDoneRecipes);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -80,13 +82,12 @@ function RecipeInProgress() {
           >
             { displayRecipeInProgress.name }
           </div>
-          <input
-            type="button"
+          <button
             data-testid="share-btn"
-            value="compartilhar"
-            onClick={ handleClickShare }
-          />
-          { linkCopied && (<div>Link copied!</div>) }
+            onClick={ (event) => handleClickShare(event, id, route) }
+          >
+            compartilhar
+          </button>
           <button
             data-testid="favorite-btn"
             onClick={ handleFavoriteProgress }
@@ -127,6 +128,7 @@ function RecipeInProgress() {
             data-testid="finish-recipe-btn"
             value="finalizar"
             disabled={ !isChecked() }
+            onClick={ handleFinish }
           />
         </>
       )}
