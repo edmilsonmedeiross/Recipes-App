@@ -72,8 +72,6 @@ function RecipeDetails() {
             image: recipe.recipeContainer[0].strDrinkThumb
               || recipe.recipeContainer[0].strMealThumb,
           };
-          console.log(recipe);
-          console.log(favorite);
           const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
           if (favoriteRecipes) {
             const isFavorite = favoriteRecipes.some((item) => item.id === recipe.id);

@@ -65,8 +65,6 @@ function CardDetails() {
       >
         {recipeContainer[0].strInstructions}
       </h6>
-      {console.log(filteredIngredients)}
-      {console.log(filteredMeassures)}
       {filteredIngredients.map((ing, index) => (
         <p
           key={ ing + index }
