@@ -1,34 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
-// import useFetchDetail from '../hooks/useFetchDetail';
 
 function CardDetails() {
   const history = useHistory();
-  // const [isLoading] = useFetchDetail();
+  const [isHidenToo, setIsHidenToo] = useState(false);
 
-  // const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  // const [isRecipeDone, setIsRecipeDone] = useState(false);
   const { detailRecipe: { recipe: { recipeContainer,
     route, id } } } = useContext(RecipesContext);
 
-  // const [isRecipeInProgress, setIsRecipeInProgress] = useState(true);
-  // const inProgressRecipe = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  // useEffect(() => {
-  //   // console.log(Object.keys(inProgressRecipe[route]).some((item) => item === id));
-  //   if (inProgressRecipe && inProgressRecipe[route]) {
-  //     const isInProgress = Object.keys(
-  //       inProgressRecipe[route],
-  //     ).some((item) => item === id);
-  //     setIsRecipeInProgress(isInProgress);
-  //   } else {
-  //     localStorage.setItem(
-  //       'inProgressRecipes',
-  //       JSON.stringify({ meals: {}, drinks: {} }),
-  //     );
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [inProgressRecipe]);
+  const isHidden = () => {
+    const contentLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (contentLocalStorage.length) {
+      setIsHidenToo(contentLocalStorage.find((rec) => rec.id === id));
+    }
+    setIsHidenToo(false);
+  };
+
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem('doneRecipes'))) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+
+    isHidden();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!recipeContainer || !Object.keys(recipeContainer).length) return;
 
@@ -86,6 +82,7 @@ function CardDetails() {
         type="button"
         data-testid="start-recipe-btn"
         onClick={ () => history.push(`/${route}/${id}/in-progress`) }
+        hidden={ isHidenToo }
       >
         Continue Recipe
       </button>
