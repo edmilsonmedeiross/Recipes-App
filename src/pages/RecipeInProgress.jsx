@@ -1,53 +1,68 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
 import useFetchRecipes from '../hooks/useFetchRecipes';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeInProgress() {
   // Estado global
-  const { displayRecipeInProgress, makeRecipeInProgress } = useContext(RecipesContext);
+  const { displayRecipeInProgress, makeRecipeInProgress,
+    isFavorite, setFavoriteRecipes, handleFavoriteProgress,
+    getLocalStorage, setLocalStorage,
+    linkCopied, handleClickShare, isDrink, setId } = useContext(RecipesContext);
 
   // Estado local
   const [checkedIngredients, setCheckedIngredients] = useState({});
 
   // Hooks
-  const history = useHistory();
   const { id } = useParams();
   const { makeFetch } = useFetchRecipes();
 
   // Variaveis
-  const pathName = history.location.pathname;
-  const isDrink = (pathName.includes('/drinks'));
+  const inProgressRecipesKey = 'inProgressRecipes';
+  const favoriteRecipesKey = 'favoriteRecipes';
 
   // Funções
-  // Função que controla os estados do formulário
+  // Função que controla os estados dos ingredientes
   const handleChange = (e) => {
-    setCheckedIngredients({
+    const object = {
+
       ...checkedIngredients,
       [e.target.name]: e.target.checked,
-    });
+    };
+    setCheckedIngredients(object);
+    setLocalStorage(inProgressRecipesKey, object);
   };
 
-  const getEndpoint = (idEndpoint) => {
+  // Função que  chama a API
+  const getDetails = async () => {
     let endpointDetails = '';
 
     if (isDrink) {
-      endpointDetails = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idEndpoint}`;
+      endpointDetails = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     } else {
-      endpointDetails = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idEndpoint}`;
+      endpointDetails = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     }
-    return endpointDetails;
-  };
-
-  const getDetails = async (url) => {
-    const recipesResults = await makeFetch(url);
+    const recipesResults = await makeFetch(endpointDetails);
     makeRecipeInProgress(recipesResults);
   };
 
-  // UseEffect;
+  // Função que verifica os ingredients
+  const isChecked = () => {
+    if (displayRecipeInProgress) {
+      return displayRecipeInProgress.ingredients
+        .every((ingredient) => checkedIngredients[ingredient]);
+    }
+    return false;
+  };
+
+  // UseEffect
   useEffect(() => {
-    const endpoint = getEndpoint(id);
-    getDetails(endpoint);
+    setId(id);
+    getDetails();
+    getLocalStorage(inProgressRecipesKey, setCheckedIngredients);
+    getLocalStorage(favoriteRecipesKey, setFavoriteRecipes);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -69,12 +84,16 @@ function RecipeInProgress() {
             type="button"
             data-testid="share-btn"
             value="compartilhar"
+            onClick={ handleClickShare }
           />
-          <input
-            type="button"
+          { linkCopied && (<div>Link copied!</div>) }
+          <button
             data-testid="favorite-btn"
-            value="favoritar"
-          />
+            onClick={ handleFavoriteProgress }
+            src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+          >
+            favoritar
+          </button>
           <div
             data-testid="recipe-category"
           >
@@ -87,14 +106,15 @@ function RecipeInProgress() {
                 data-testid={ `${index}-ingredient-step` }
                 key={ index }
                 className={ checkedIngredients[ingredient]
-                  ? 'textDecoration'
+                  ? 'text-decoration'
                   : undefined }
               >
                 { ingredient }
                 <input
                   type="checkbox"
                   name={ ingredient }
-                  onClick={ handleChange }
+                  onChange={ handleChange }
+                  checked={ checkedIngredients[ingredient] || false }
                 />
               </label>))}
           <div
@@ -106,6 +126,7 @@ function RecipeInProgress() {
             type="button"
             data-testid="finish-recipe-btn"
             value="finalizar"
+            disabled={ !isChecked() }
           />
         </>
       )}

@@ -10,7 +10,6 @@ function useFetchDetail() {
     const url = recipe.recipe.route === 'meals'
       ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipe.recipe.id}`
       : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${recipe.recipe.id}`;
-    console.log(url);
     fetch(url)
       .then((response) => response.json())
       .then((data) => setDetailRecipe((prevState) => ({
@@ -28,7 +27,6 @@ function useFetchDetail() {
     const url = route === 'meals'
       ? 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
       : 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-    console.log(url);
     fetch(url)
       .then((response) => response.json())
       .then((data) => setDetailRecipe((prevState) => ({
