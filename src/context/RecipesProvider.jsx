@@ -55,17 +55,17 @@ function RecipesProvider({ children }) {
   };
 
   // Adiciona favorito ao estado e localStorage
-  const addFavorite = () => {
+  const addFavorite = (ref) => {
     const newFavorite = [{
-      id: isDrink ? recipeInProgress[0].idDrink : recipeInProgress[0].idMeal,
+      id: isDrink ? ref.idDrink : ref.idMeal,
       type: isDrink ? 'drink' : 'meal',
-      nationality: recipeInProgress[0].strArea || '',
-      category: recipeInProgress[0].strCategory,
-      alcoholicOrNot: isDrink ? recipeInProgress[0].strAlcoholic : '',
-      name: isDrink ? recipeInProgress[0].strDrink : recipeInProgress[0].strMeal,
+      nationality: ref.strArea || '',
+      category: ref.strCategory,
+      alcoholicOrNot: isDrink ? ref.strAlcoholic : '',
+      name: isDrink ? ref.strDrink : ref.strMeal,
       image: isDrink
-        ? recipeInProgress[0].strDrinkThumb
-        : recipeInProgress[0].strMealThumb,
+        ? ref.strDrinkThumb
+        : ref.strMealThumb,
     }];
     const favorites = [...favoriteRecipe, ...newFavorite];
     setFavoriteRecipes(favorites);
@@ -159,12 +159,22 @@ function RecipesProvider({ children }) {
   };
 
   // Função para setar favorito localStorage
-  const handleClickFavorite = () => {
+  const handleFavoriteProgress = () => {
     const thisFavorite = isFavorite();
     if (thisFavorite) {
       removeFavorite(id);
     } else {
-      addFavorite();
+      addFavorite(recipeInProgress[0]);
+    }
+  };
+
+  // Função para setar favorito localStorage
+  const handlekFavoriteDetails = () => {
+    const thisFavorite = isFavorite();
+    if (thisFavorite) {
+      removeFavorite(id);
+    } else {
+      addFavorite(detailRecipe.recipe.recipeContainer[0]);
     }
   };
 
@@ -182,7 +192,8 @@ function RecipesProvider({ children }) {
     setFavoriteRecipes,
     addFavorite,
     removeFavorite,
-    handleClickFavorite,
+    handleFavoriteProgress,
+    handlekFavoriteDetails,
     setLocalStorage,
     getLocalStorage,
     handleClickShare,

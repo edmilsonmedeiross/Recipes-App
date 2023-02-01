@@ -8,7 +8,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RecipeInProgress() {
   // Estado global
   const { displayRecipeInProgress, makeRecipeInProgress,
-    isFavorite, setFavoriteRecipes, handleClickFavorite,
+    isFavorite, setFavoriteRecipes, handleFavoriteProgress,
     getLocalStorage, setLocalStorage,
     linkCopied, handleClickShare, isDrink, setId } = useContext(RecipesContext);
 
@@ -89,7 +89,7 @@ function RecipeInProgress() {
           { linkCopied && (<div>Link copied!</div>) }
           <button
             data-testid="favorite-btn"
-            onClick={ handleClickFavorite }
+            onClick={ handleFavoriteProgress }
             src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
           >
             favoritar
