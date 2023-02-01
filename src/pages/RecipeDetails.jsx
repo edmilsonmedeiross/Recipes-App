@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
-import CardDetails from '../components/cardDetaisl';
+import CardDetails from '../components/cardDetails';
 import useFetchDetail from '../hooks/useFetchDetail';
 import Recomendation from '../components/Recomendation';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -57,26 +57,30 @@ function RecipeDetails() {
     <div>
       {isLoading && <h2>Carregando...</h2>}
       <CardDetails />
-      <button
-        type="button"
-        data-testid="share-btn"
-        title="oi"
-        onClick={ ({ target }) => {
-          const { location: { origin } } = window;
-          navigator.clipboard.writeText(`${origin}/${route}/${idRecipe}`);
-          target.textContent = 'Link copied!';
-          global.alert('Link copied!');
-        } }
-      >
-        Share
-      </button>
-      <button
-        data-testid="favorite-btn"
-        onClick={ handlekFavoriteDetails }
-        src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
-      >
-        Favorite
-      </button>
+      <div>
+        <button
+          type="button"
+          className="share-btn"
+          data-testid="share-btn"
+          title="oi"
+          onClick={ ({ target }) => {
+            const { location: { origin } } = window;
+            navigator.clipboard.writeText(`${origin}/${route}/${idRecipe}`);
+            target.textContent = 'Link copied!';
+            global.alert('Link copied!');
+          } }
+        >
+          Share
+        </button>
+        <button
+          className="favorite-btn"
+          data-testid="favorite-btn"
+          onClick={ handlekFavoriteDetails }
+          src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+        >
+          Favorite
+        </button>
+      </div>
       {/* <button
          // type="button"
          // data-testid="favorite-btn"
@@ -116,7 +120,6 @@ function RecipeDetails() {
         //Favorite
         //</button> */}
       <Recomendation />
-      <div>{idRecipe}</div>
     </div>
   );
 }

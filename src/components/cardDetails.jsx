@@ -41,25 +41,25 @@ function CardDetails() {
     .includes('strMeasure') && meassure[1]);
 
   return (
-    <div>
+    <div className="card-details">
       <h1
         data-testid="recipe-title"
       >
         {recipeContainer[0].strMeal || recipeContainer[0].strDrink}
       </h1>
-      <h4
-        data-testid="recipe-category"
-      >
-        {recipeContainer[0].strCategory || recipeContainer[0].strDrink}
-        {route === 'drinks' && <p>{recipeContainer[0].strAlcoholic}</p>}
-      </h4>
-      {route === 'meals' && <h4>{recipeContainer[0].strTags}</h4>}
       <img
         data-testid="recipe-photo"
         width={ 400 }
         src={ recipeContainer[0].strMealThumb || recipeContainer[0].strDrinkThumb }
         alt={ recipeContainer[0].strMeal || recipeContainer[0].strDrink }
       />
+      <h4
+        data-testid="recipe-category"
+      >
+        {recipeContainer[0].strCategory || recipeContainer[0].strDrink}
+        {route === 'drinks' && recipeContainer[0].strAlcoholic}
+      </h4>
+      {route === 'meals' && <h4>{recipeContainer[0].strTags}</h4>}
       <h6
         data-testid="instructions"
       >

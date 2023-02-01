@@ -71,17 +71,16 @@
 }
 
 .recipesCard {
-  background: #dfdee0ee;
+  background: #f4f2f7ee;
   border: 1px solid rgb(8, 8, 8);
   display: inline-block;
-  margin-bottom: 10%;
   width: 50%;
 }
 
 .RecipeCard, img {
   background: #dfdee0ee;
-  margin-top: -21%;
   width: 100%;
+
 }
 
 .footer.footer {
@@ -94,26 +93,22 @@
   width: 100%;
 }
 
-.iconFooterDrinks {
+.iconFooterDrinks, .iconFooterMeals {
   margin-left: 25%;
-  margin-top: 2%;
-  width: 9%;
-}
-
-.iconFooterMeals {
-  margin-left: 25%;
-  margin-top: 2%;
   width: 9%;
 }
 
 .carroussel-container {
+  background: #dfdee0d8;
   display: flex;
+  margin-bottom: 25px;
+  margin-top: 10px;
   overflow-x: scroll;
-  padding-bottom: 15px;
   width: 100%;
 }
 
 .carroussel-container .carroussel-card {
+  border: 1px solid rgb(8, 8, 8);
   min-width: 50vw;
   width: 50vw;
 }
@@ -126,6 +121,31 @@
   width: 100vw;
 }
 
-.text-decoration {
-  text-decoration: line-through solid black;
+.favorite-btn, .share-btn {
+  position: relative;
+  width: 50%;
 }
+
+.card-details {
+  background: #dfdee0d8;
+  color: black;
+  margin-top: 10px;
+  padding: 20px;
+
+}
+
+img, .recipe-photo {
+  margin-bottom: 12px;
+  margin-top: 1px;
+}
+
+h1, .recipe-title {
+  color: rgb(26, 11, 238);
+  margin-left: 18%;
+  margin-top: 5%;
+}
+
+h4, .recipe-category {
+  color: rgb(26, 11, 238);
+}
+
