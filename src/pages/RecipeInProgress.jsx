@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
 import useFetchRecipes from '../hooks/useFetchRecipes';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { favoriteRecipesKey, inProgressRecipesKey,
+  doneRecipesKey } from '../constants/constants';
 
 function RecipeInProgress() {
   // Estado global
   const { displayRecipeInProgress, makeRecipeInProgress,
     isFavorite, setFavoriteRecipes, handleFavoriteProgress,
-    getLocalStorage, setLocalStorage,
-    linkCopied, handleClickShare, isDrink, setId } = useContext(RecipesContext);
+    getLocalStorage, setLocalStorage, setDoneRecipes,
+    handleClickShare, isDrink, setId,
+    handleFinish } = useContext(RecipesContext);
 
   // Estado local
   const [checkedIngredients, setCheckedIngredients] = useState({});
@@ -18,10 +21,8 @@ function RecipeInProgress() {
   // Hooks
   const { id } = useParams();
   const { makeFetch } = useFetchRecipes();
-
-  // Variaveis
-  const inProgressRecipesKey = 'inProgressRecipes';
-  const favoriteRecipesKey = 'favoriteRecipes';
+  const history = useHistory();
+  const route = history.location.pathname.split('/')[1];
 
   // Funções
   // Função que controla os estados dos ingredientes
@@ -63,6 +64,7 @@ function RecipeInProgress() {
     getDetails();
     getLocalStorage(inProgressRecipesKey, setCheckedIngredients);
     getLocalStorage(favoriteRecipesKey, setFavoriteRecipes);
+    getLocalStorage(doneRecipesKey, setDoneRecipes);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
@@ -80,6 +82,7 @@ function RecipeInProgress() {
             alt="receita"
             data-testid="recipe-photo"
           />
+<<<<<<< HEAD
           <button
             type="button"
             data-testid="share-btn"
@@ -88,6 +91,18 @@ function RecipeInProgress() {
           >
             Share
             {linkCopied && (<div>Link copied!</div>) }
+=======
+          <div
+            data-testid="recipe-title"
+          >
+            { displayRecipeInProgress.name }
+          </div>
+          <button
+            data-testid="share-btn"
+            onClick={ (event) => handleClickShare(event, id, route) }
+          >
+            compartilhar
+>>>>>>> d2f8873ec557668dff371271f5b61adfd679f413
           </button>
           <button
             data-testid="favorite-btn"
@@ -135,9 +150,14 @@ function RecipeInProgress() {
             data-testid="finish-recipe-btn"
             value="finalizar"
             disabled={ !isChecked() }
+<<<<<<< HEAD
           >
             Finalizar
           </button>
+=======
+            onClick={ handleFinish }
+          />
+>>>>>>> d2f8873ec557668dff371271f5b61adfd679f413
         </>
       )}
     </div>

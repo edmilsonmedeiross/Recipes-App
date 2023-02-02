@@ -10,7 +10,7 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RecipeDetails() {
   // Estado global
   const { detailRecipe, setDetailRecipe, setId, getLocalStorage,
-    isFavorite, setFavoriteRecipes, handlekFavoriteDetails,
+    isFavorite, setFavoriteRecipes, handleFavoriteDetails,
   } = useContext(RecipesContext);
 
   // Estado local
@@ -57,6 +57,7 @@ function RecipeDetails() {
     <div>
       {isLoading && <h2>Carregando...</h2>}
       <CardDetails />
+<<<<<<< HEAD
       <div>
         <button
           type="button"
@@ -81,6 +82,28 @@ function RecipeDetails() {
           Favorite
         </button>
       </div>
+=======
+      <button
+        type="button"
+        data-testid="share-btn"
+        title="oi"
+        onClick={ ({ target }) => {
+          const { location: { origin } } = window;
+          navigator.clipboard.writeText(`${origin}/${route}/${idRecipe}`);
+          target.textContent = 'Link copied!';
+          global.alert('Link copied!');
+        } }
+      >
+        Share
+      </button>
+      <button
+        data-testid="favorite-btn"
+        onClick={ handleFavoriteDetails }
+        src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+      >
+        Favorite
+      </button>
+>>>>>>> d2f8873ec557668dff371271f5b61adfd679f413
       {/* <button
          // type="button"
          // data-testid="favorite-btn"
