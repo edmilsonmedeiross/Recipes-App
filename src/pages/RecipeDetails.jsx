@@ -72,7 +72,7 @@ function RecipeDetails() {
       <button
         data-testid="favorite-btn"
         onClick={ () => handleFavorite(detailRecipe.recipe.recipeContainer[0]) }
-        src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+        src={ isFavorite(idRecipe) ? blackHeartIcon : whiteHeartIcon }
       >
         Favorite
       </button>

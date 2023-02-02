@@ -94,7 +94,8 @@ function RecipeInProgress() {
           <button
             data-testid="favorite-btn"
             onClick={ () => handleFavorite(recipeInProgress[0]) }
-            src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+            src={ isFavorite(displayRecipeInProgress.id)
+              ? blackHeartIcon : whiteHeartIcon }
           >
             Favorites
           </button>
