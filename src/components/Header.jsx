@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
 function Header(props) {
+  const [user, setUser] = useState('');
   const { isSearchIcon, title } = props;
   const [isSearchBar, setIsSearchBar] = useState(false);
 
   const toogleSearchBar = () => {
     setIsSearchBar(!isSearchBar);
   };
+
+  const getEmailLocalStorage = async () => {
+    const getUserFromLocalStorage = JSON.parse(localStorage.getItem('user'));
+    if (!getUserFromLocalStorage) return;
+    setUser(getUserFromLocalStorage.email);
+  };
+
+  useEffect(() => {
+    getEmailLocalStorage();
+  }, []);
 
   return (
     <header>
@@ -43,6 +54,7 @@ function Header(props) {
       >
         { title }
       </h2>
+      <p data-testid="profile-email">{ user }</p>
     </header>
   );
 }
