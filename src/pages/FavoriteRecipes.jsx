@@ -103,7 +103,7 @@ function FavoriteRecipes() {
               onClick={ () => removeFavorite(recipe.id) }
               src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
             >
-              favoritar
+              desfavoritar
             </button>
             {console.log(recipe)}
           </div>
