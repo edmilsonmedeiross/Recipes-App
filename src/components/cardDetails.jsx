@@ -38,11 +38,11 @@ function CardDetails() {
 
   return (
     <div className="card-details">
-      <h1
+      <h2
         data-testid="recipe-title"
       >
         {recipeContainer[0].strMeal || recipeContainer[0].strDrink}
-      </h1>
+      </h2>
       <img
         data-testid="recipe-photo"
         width={ 400 }

@@ -43,27 +43,7 @@ function DoneRecipes() {
         isSearchIcon={ false }
         title="Done Recipes"
       />
-      <button
-        data-testid="filter-by-all-btn"
-        value="all"
-        onClick={ filter }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-meal-btn"
-        value="meal"
-        onClick={ filter }
-      >
-        Meals
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        value="drink"
-        onClick={ filter }
-      >
-        Drinks
-      </button>
+
       { doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
         <div
           key={ index }

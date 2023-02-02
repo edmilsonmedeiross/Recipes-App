@@ -28,7 +28,7 @@ function SearchBar() {
   };
 
   return (
-    <div>
+    <div className="search-container">
       <input
         type="text"
         data-testid="search-input"
@@ -37,7 +37,7 @@ function SearchBar() {
         onChange={ handleChange }
       />
       <label htmlFor="ingredient">
-        ingredient
+        Ingredient
         <input
           type="radio"
           name="searchType"
@@ -48,7 +48,7 @@ function SearchBar() {
         />
       </label>
       <label htmlFor="name">
-        name
+        Name
         <input
           type="radio"
           name="searchType"
@@ -59,7 +59,7 @@ function SearchBar() {
         />
       </label>
       <label htmlFor="first-letter">
-        first letter
+        Fisrt Latter
         <input
           type="radio"
           name="searchType"

@@ -72,11 +72,11 @@ function RecipeInProgress() {
     <div className="recipe-in-progress">
       { displayRecipeInProgress && (
         <>
-          <h1
+          <h2
             data-testid="recipe-title"
           >
             { displayRecipeInProgress.name }
-          </h1>
+          </h2>
           <img
             src={ displayRecipeInProgress.img }
             alt="receita"
