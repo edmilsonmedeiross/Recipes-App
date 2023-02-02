@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { RecipesContext } from '../context/RecipesProvider';
-import CardDetails from '../components/cardDetaisl';
+import CardDetails from '../components/cardDetails';
 import useFetchDetail from '../hooks/useFetchDetail';
 import Recomendation from '../components/Recomendation';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -116,7 +116,6 @@ function RecipeDetails() {
         //Favorite
         //</button> */}
       <Recomendation />
-      <div>{idRecipe}</div>
     </div>
   );
 }
