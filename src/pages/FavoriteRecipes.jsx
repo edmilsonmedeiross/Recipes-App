@@ -104,7 +104,6 @@ function FavoriteRecipes() {
             >
               desfavoritar
             </button>
-            {console.log(recipe)}
           </div>
         )) }
     </div>

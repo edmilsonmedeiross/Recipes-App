@@ -159,8 +159,9 @@ function RecipesProvider({ children }) {
   // Função que determina se a receita atual é favorita
   const isFavorite = (idFav) => {
     if (favoriteRecipe) {
-      return favoriteRecipe
+      const haveFavorite = favoriteRecipe
         .some((favorite) => (Number(favorite.id) === Number(idFav)));
+      return haveFavorite;
     }
     return false;
   };
