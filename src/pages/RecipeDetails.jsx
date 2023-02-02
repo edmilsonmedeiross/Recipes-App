@@ -9,8 +9,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeDetails() {
   // Estado global
-  const { detailRecipe, setDetailRecipe, setId, getLocalStorage,
-    isFavorite, setFavoriteRecipes, handleFavoriteDetails,
+  const { detailRecipe, setDetailRecipe, getLocalStorage,
+    isFavorite, setFavoriteRecipes, handleFavorite,
   } = useContext(RecipesContext);
 
   // Estado local
@@ -28,7 +28,6 @@ function RecipeDetails() {
 
   // UseEffect
   useEffect(() => {
-    setId(idRecipe);
     getLocalStorage(favoriteRecipesKey, setFavoriteRecipes);
     setDetailRecipe({ ...detailRecipe,
       recipe: { ...detailRecipe.recipe, route, id: idRecipe } });
@@ -72,8 +71,8 @@ function RecipeDetails() {
       </button>
       <button
         data-testid="favorite-btn"
-        onClick={ handleFavoriteDetails }
-        src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+        onClick={ () => handleFavorite(detailRecipe.recipe.recipeContainer[0]) }
+        src={ isFavorite(idRecipe) ? blackHeartIcon : whiteHeartIcon }
       >
         Favorite
       </button>
