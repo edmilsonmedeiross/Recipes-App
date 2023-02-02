@@ -82,16 +82,6 @@ function RecipeInProgress() {
             alt="receita"
             data-testid="recipe-photo"
           />
-<<<<<<< HEAD
-          <button
-            type="button"
-            data-testid="share-btn"
-            value="share"
-            onClick={ handleClickShare }
-          >
-            Share
-            {linkCopied && (<div>Link copied!</div>) }
-=======
           <div
             data-testid="recipe-title"
           >
@@ -102,7 +92,6 @@ function RecipeInProgress() {
             onClick={ (event) => handleClickShare(event, id, route) }
           >
             compartilhar
->>>>>>> d2f8873ec557668dff371271f5b61adfd679f413
           </button>
           <button
             data-testid="favorite-btn"
@@ -150,14 +139,10 @@ function RecipeInProgress() {
             data-testid="finish-recipe-btn"
             value="finalizar"
             disabled={ !isChecked() }
-<<<<<<< HEAD
+            onClick={ handleFinish }
           >
             Finalizar
           </button>
-=======
-            onClick={ handleFinish }
-          />
->>>>>>> d2f8873ec557668dff371271f5b61adfd679f413
         </>
       )}
     </div>

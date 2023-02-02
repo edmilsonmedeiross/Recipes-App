@@ -57,32 +57,6 @@ function RecipeDetails() {
     <div>
       {isLoading && <h2>Carregando...</h2>}
       <CardDetails />
-<<<<<<< HEAD
-      <div>
-        <button
-          type="button"
-          className="share-btn"
-          data-testid="share-btn"
-          title="oi"
-          onClick={ ({ target }) => {
-            const { location: { origin } } = window;
-            navigator.clipboard.writeText(`${origin}/${route}/${idRecipe}`);
-            target.textContent = 'Link copied!';
-            global.alert('Link copied!');
-          } }
-        >
-          Share
-        </button>
-        <button
-          className="favorite-btn"
-          data-testid="favorite-btn"
-          onClick={ handlekFavoriteDetails }
-          src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
-        >
-          Favorite
-        </button>
-      </div>
-=======
       <button
         type="button"
         data-testid="share-btn"
@@ -103,7 +77,6 @@ function RecipeDetails() {
       >
         Favorite
       </button>
->>>>>>> d2f8873ec557668dff371271f5b61adfd679f413
       {/* <button
          // type="button"
          // data-testid="favorite-btn"
