@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { favoriteRecipesKey } from '../constants/constants';
 import { RecipesContext } from '../context/RecipesProvider';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -13,7 +12,7 @@ function FavoriteRecipes() {
 
   // Estado global
   const { favoriteRecipe, handleClickShare,
-    getLocalStorage, setFavoriteRecipes, isFavorite, removeFavorite,
+    getLocalStorage, setFavoriteRecipes, removeFavorite,
   } = useContext(RecipesContext);
 
   // Função
@@ -101,7 +100,7 @@ function FavoriteRecipes() {
             <button
               data-testid={ `${index}-horizontal-favorite-btn` }
               onClick={ () => removeFavorite(recipe.id) }
-              src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+              src={ blackHeartIcon }
             >
               desfavoritar
             </button>
