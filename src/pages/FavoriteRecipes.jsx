@@ -12,8 +12,8 @@ function FavoriteRecipes() {
   const [favoriteRecipesFiltered, setFavoriteRecipesFiltered] = useState([]);
 
   // Estado global
-  const { favoriteRecipe, handleClickShare, handleFavorite,
-    getLocalStorage, setFavoriteRecipes, isFavorite,
+  const { favoriteRecipe, handleClickShare,
+    getLocalStorage, setFavoriteRecipes, isFavorite, removeFavorite,
   } = useContext(RecipesContext);
 
   // Função
@@ -100,7 +100,7 @@ function FavoriteRecipes() {
             </button>
             <button
               data-testid={ `${index}-horizontal-favorite-btn` }
-              onClick={ () => handleFavorite(recipe) }
+              onClick={ () => removeFavorite(recipe.id) }
               src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
             >
               favoritar
