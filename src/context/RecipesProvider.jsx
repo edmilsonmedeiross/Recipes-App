@@ -15,7 +15,6 @@ function RecipesProvider({ children }) {
   const isDrink = (pathName.includes('/drinks'));
 
   // Estados do contexto
-  const [id, setId] = useState(0);
   const [displayRecipes, setDisplayRecipes] = useState([]);
   const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [displayRecipeInProgress, setDisplayRecipeInProgress] = useState(defDisplayRIP);
@@ -158,31 +157,25 @@ function RecipesProvider({ children }) {
   };
 
   // Função que determina se a receita atual é favorita
-  const isFavorite = () => {
+  const isFavorite = (idFav) => {
     if (favoriteRecipe) {
       return favoriteRecipe
-        .some((favorite) => (Number(favorite.id) === Number(id)));
+        .some((favorite) => (Number(favorite.id) === Number(idFav)));
     }
     return false;
   };
 
   // Função para setar favorito localStorage
-  const handleFavoriteProgress = () => {
-    const thisFavorite = isFavorite();
-    if (thisFavorite) {
-      removeFavorite(id);
-    } else {
-      addFavorite(recipeInProgress[0]);
-    }
-  };
+  const handleFavorite = (ref) => {
+    // Pega id do objeto
+    const idFav = isDrink ? ref.idDrink : ref.idMeal;
+    // Verifica se ele já e um favorito
+    const thisFavorite = isFavorite(idFav);
 
-  // Função para setar favorito localStorage
-  const handleFavoriteDetails = () => {
-    const thisFavorite = isFavorite();
     if (thisFavorite) {
-      removeFavorite(id);
+      removeFavorite(idFav);
     } else {
-      addFavorite(detailRecipe.recipe.recipeContainer[0]);
+      addFavorite(ref);
     }
   };
 
@@ -206,14 +199,12 @@ function RecipesProvider({ children }) {
     setFavoriteRecipes,
     addFavorite,
     removeFavorite,
-    handleFavoriteProgress,
-    handleFavoriteDetails,
+    handleFavorite,
     setLocalStorage,
     getLocalStorage,
     handleClickShare,
     isFavorite,
     isDrink,
-    setId,
     handleFinish,
     doneRecipes,
     setDoneRecipes,
