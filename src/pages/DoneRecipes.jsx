@@ -15,15 +15,17 @@ function DoneRecipes() {
   } = useContext(RecipesContext);
 
   // Função
-  const filter = ({ target: { value } }) => {
-    if (value !== 'all') {
-      const doneRecipesFilter = doneRecipes
-        .filter((recipe) => (recipe.type === value));
-      setDoneRecipesFiltered([...doneRecipesFilter]);
-    } else {
-      setDoneRecipesFiltered([...doneRecipes]);
-    }
-  };
+  // const filter = ({ target: { value } }) => {
+  //   if (value !== 'all') {
+  //     const doneRecipesFilter = doneRecipes
+  //       .filter((recipe) => (recipe.type === value));
+  //     console.log(doneRecipesFilter);
+  //     setDoneRecipesFiltered([...doneRecipesFilter]);
+  //   } else {
+  //     setDoneRecipesFiltered([...doneRecipes]);
+  //     console.log([...doneRecipes]);
+  //   }
+  // };
 
   // UseEffect
   useEffect(() => {
@@ -41,27 +43,7 @@ function DoneRecipes() {
         isSearchIcon={ false }
         title="Done Recipes"
       />
-      <button
-        data-testid="filter-by-all-btn"
-        value="all"
-        onClick={ filter }
-      >
-        All
-      </button>
-      <button
-        data-testid="filter-by-meal-btn"
-        value="meal"
-        onClick={ filter }
-      >
-        Meals
-      </button>
-      <button
-        data-testid="filter-by-drink-btn"
-        value="drink"
-        onClick={ filter }
-      >
-        Drinks
-      </button>
+
       { doneRecipesFiltered && doneRecipesFiltered.map((doneRecipe, index) => (
         <div
           key={ index }

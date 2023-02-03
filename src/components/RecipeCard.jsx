@@ -16,11 +16,11 @@ function RecipeCard(props) {
           src={ img }
           data-testid={ `${id}-card-img` }
         />
-        <div
+        <p
           data-testid={ `${id}-card-name` }
         >
           { name }
-        </div>
+        </p>
       </div>
     </Link>
   );

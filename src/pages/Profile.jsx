@@ -19,27 +19,29 @@ function Profile() {
         isSearchIcon={ false }
         title="Profile"
       />
-      <button
-        data-testid="profile-done-btn"
-        type="button"
-        onClick={ () => handleClickRoute('done-recipes') }
-      >
-        Done Recipes
-      </button>
-      <button
-        data-testid="profile-favorite-btn"
-        type="button"
-        onClick={ () => handleClickRoute('/favorite-recipes') }
-      >
-        Favorite Recipes
-      </button>
-      <button
-        data-testid="profile-logout-btn"
-        type="button"
-        onClick={ () => handleClickRoute('/') }
-      >
-        Logout
-      </button>
+      <div className="profile-container">
+        <button
+          data-testid="profile-done-btn"
+          type="button"
+          onClick={ () => handleClickRoute('done-recipes') }
+        >
+          Done Recipes
+        </button>
+        <button
+          data-testid="profile-favorite-btn"
+          type="button"
+          onClick={ () => handleClickRoute('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </button>
+        <button
+          data-testid="profile-logout-btn"
+          type="button"
+          onClick={ () => handleClickRoute('/') }
+        >
+          Logout
+        </button>
+      </div>
       <Footer />
     </div>
   );
