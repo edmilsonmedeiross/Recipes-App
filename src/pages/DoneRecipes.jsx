@@ -19,11 +19,9 @@ function DoneRecipes() {
     if (value !== 'all') {
       const doneRecipesFilter = doneRecipes
         .filter((recipe) => (recipe.type === value));
-      console.log(doneRecipesFilter);
       setDoneRecipesFiltered([...doneRecipesFilter]);
     } else {
       setDoneRecipesFiltered([...doneRecipes]);
-      console.log([...doneRecipes]);
     }
   };
 
