@@ -15,6 +15,7 @@ function DoneRecipes() {
   } = useContext(RecipesContext);
 
   // Função
+<<<<<<< HEAD
   //  const filter = ({ target: { value } }) => {
   //    if (value !== 'all') {
   //      const doneRecipesFilter = doneRecipes
@@ -26,6 +27,17 @@ function DoneRecipes() {
   //      console.log([...doneRecipes]);
   //    }
   //  };
+=======
+  const filter = ({ target: { value } }) => {
+    if (value !== 'all') {
+      const doneRecipesFilter = doneRecipes
+        .filter((recipe) => (recipe.type === value));
+      setDoneRecipesFiltered([...doneRecipesFilter]);
+    } else {
+      setDoneRecipesFiltered([...doneRecipes]);
+    }
+  };
+>>>>>>> a9d50fe3b86aead01468032f5fb83e98316e897d
 
   // UseEffect
   useEffect(() => {

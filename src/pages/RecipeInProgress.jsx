@@ -9,20 +9,19 @@ import { favoriteRecipesKey, inProgressRecipesKey,
 
 function RecipeInProgress() {
   // Estado global
-  const { displayRecipeInProgress, makeRecipeInProgress,
-    isFavorite, setFavoriteRecipes, handleFavoriteProgress,
+  const { recipeInProgress, displayRecipeInProgress, makeRecipeInProgress,
+    isFavorite, setFavoriteRecipes, handleFavorite,
     getLocalStorage, setLocalStorage, setDoneRecipes,
-    handleClickShare, isDrink, setId,
-    handleFinish } = useContext(RecipesContext);
+    handleClickShare, isDrink, handleFinish } = useContext(RecipesContext);
 
   // Estado local
   const [checkedIngredients, setCheckedIngredients] = useState({});
 
   // Hooks
-  const { id } = useParams();
   const { makeFetch } = useFetchRecipes();
   const history = useHistory();
   const route = history.location.pathname.split('/')[1];
+  const { id } = useParams();
 
   // Funções
   // Função que controla os estados dos ingredientes
@@ -60,7 +59,6 @@ function RecipeInProgress() {
 
   // UseEffect
   useEffect(() => {
-    setId(id);
     getDetails();
     getLocalStorage(inProgressRecipesKey, setCheckedIngredients);
     getLocalStorage(favoriteRecipesKey, setFavoriteRecipes);
@@ -95,8 +93,9 @@ function RecipeInProgress() {
           </button>
           <button
             data-testid="favorite-btn"
-            onClick={ handleFavoriteProgress }
-            src={ isFavorite() ? blackHeartIcon : whiteHeartIcon }
+            onClick={ () => handleFavorite(recipeInProgress[0]) }
+            src={ isFavorite(id)
+              ? blackHeartIcon : whiteHeartIcon }
           >
             Favorites
           </button>
