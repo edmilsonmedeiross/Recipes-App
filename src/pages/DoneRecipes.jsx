@@ -15,17 +15,17 @@ function DoneRecipes() {
   } = useContext(RecipesContext);
 
   // Função
-  const filter = ({ target: { value } }) => {
-    if (value !== 'all') {
-      const doneRecipesFilter = doneRecipes
-        .filter((recipe) => (recipe.type === value));
-      console.log(doneRecipesFilter);
-      setDoneRecipesFiltered([...doneRecipesFilter]);
-    } else {
-      setDoneRecipesFiltered([...doneRecipes]);
-      console.log([...doneRecipes]);
-    }
-  };
+  //  const filter = ({ target: { value } }) => {
+  //    if (value !== 'all') {
+  //      const doneRecipesFilter = doneRecipes
+  //        .filter((recipe) => (recipe.type === value));
+  //      console.log(doneRecipesFilter);
+  //      setDoneRecipesFiltered([...doneRecipesFilter]);
+  //    } else {
+  //      setDoneRecipesFiltered([...doneRecipes]);
+  //      console.log([...doneRecipes]);
+  //    }
+  //  };
 
   // UseEffect
   useEffect(() => {
