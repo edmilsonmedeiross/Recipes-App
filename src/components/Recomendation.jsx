@@ -28,15 +28,15 @@ function Recomendation() {
           key={ recipe.idDrink || recipe.idMeal }
           data-testid={ `${index}-recommendation-card` }
         >
-          <h6
-            data-testid={ `${index}-recommendation-title` }
-          >
-            {recipe.strDrink || recipe.strMeal}
-          </h6>
           <img
             src={ recipe.strDrinkThumb || recipe.strMealThumb }
             alt={ recipe.strMeal || recipe.strDrink }
           />
+          <p
+            data-testid={ `${index}-recommendation-title` }
+          >
+            {recipe.strDrink || recipe.strMeal}
+          </p>
         </div>
       ))}
     </div>

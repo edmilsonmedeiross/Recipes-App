@@ -53,10 +53,19 @@ function RecipeDetails() {
   }
 
   return (
-    <div>
+    <div className="recipe-details">
       {isLoading && <h2>Carregando...</h2>}
       <CardDetails />
       <button
+        className="favorite-btn"
+        data-testid="favorite-btn"
+        onClick={ () => handleFavorite(detailRecipe.recipe.recipeContainer[0]) }
+        src={ isFavorite(idRecipe) ? blackHeartIcon : whiteHeartIcon }
+      >
+        <br />
+      </button>
+      <button
+        className="share-btn"
         type="button"
         data-testid="share-btn"
         title="oi"
@@ -67,15 +76,11 @@ function RecipeDetails() {
           global.alert('Link copied!');
         } }
       >
-        Share
+        <br />
       </button>
-      <button
-        data-testid="favorite-btn"
-        onClick={ () => handleFavorite(detailRecipe.recipe.recipeContainer[0]) }
-        src={ isFavorite(idRecipe) ? blackHeartIcon : whiteHeartIcon }
-      >
-        Favorite
-      </button>
+      <div className="title-recomendations">
+        <h2>Recomendations</h2>
+      </div>
       {/* <button
          // type="button"
          // data-testid="favorite-btn"
