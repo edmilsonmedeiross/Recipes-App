@@ -49,26 +49,29 @@ function CardDetails() {
         src={ recipeContainer[0].strMealThumb || recipeContainer[0].strDrinkThumb }
         alt={ recipeContainer[0].strMeal || recipeContainer[0].strDrink }
       />
-      <h4
-        data-testid="recipe-category"
-      >
-        {recipeContainer[0].strCategory || recipeContainer[0].strDrink}
-        {route === 'drinks' && recipeContainer[0].strAlcoholic}
-      </h4>
-      {route === 'meals' && <h4>{recipeContainer[0].strTags}</h4>}
       <h6
         data-testid="instructions"
       >
+        <h4
+          data-testid="recipe-category"
+        >
+          {recipeContainer[0].strCategory || recipeContainer[0].strDrink}
+          {route === 'drinks' && recipeContainer[0].strAlcoholic}
+        </h4>
+        {route === 'meals' && <h4>{recipeContainer[0].strTags}</h4>}
         {recipeContainer[0].strInstructions}
       </h6>
-      {filteredIngredients.map((ing, index) => (
-        <p
-          key={ ing + index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {`${ing[1]}: ${filteredMeassures[index] ? filteredMeassures[index][1] : ''}`}
-        </p>
-      ))}
+      <h6>
+        <h4> Ingredients: </h4>
+        {filteredIngredients.map((ing, index) => (
+          <p
+            key={ ing + index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {`${ing[1]}: ${filteredMeassures[index] ? filteredMeassures[index][1] : ''}`}
+          </p>
+        ))}
+      </h6>
       {route === 'meals' && (
         <iframe
           width="100%"

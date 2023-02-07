@@ -26,7 +26,13 @@ function Header(props) {
   return (
     <header>
       <div className="navBarHeader">
-        <p data-testid="profile-email">{ user }</p>
+        <p
+          className="profile-email"
+          data-testid="profile-email"
+        >
+          { user }
+
+        </p>
         <button
           href="/profile"
           onClick={ toogleSearchBar }
